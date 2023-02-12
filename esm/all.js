@@ -151,8 +151,9 @@ import create from 'proxied-html-constructors/all';
  * @returns {HTML}
  */
 export default function (self = globalThis) {
+  const {document} = self;
   const HTML = create(self);
-  const {document} = self;  const set = (map, tag, Class) => {
+  const set = (map, tag, Class) => {
     class CustomElement extends custom(HTML[Class]) {
       constructor(element) {
         super(element || document.createElement(tag));
@@ -160,7 +161,8 @@ export default function (self = globalThis) {
     }
     map.set(tag, CustomElement);
     return CustomElement;
-  };  return new Proxy(new Map, {
+  };
+  return new Proxy(new Map, {
     get(map, tag) {
       const _ = tag.toLowerCase();
       return map.get(_) || set(map, _, tag);

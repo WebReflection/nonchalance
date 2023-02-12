@@ -11,7 +11,6 @@ export default {
       }
     })
   ],
-  
   output: {
     file: './es.js',
     format: 'module'

@@ -152,8 +152,9 @@ const create = (m => /* c8 ignore start */ m.__esModule ? m.default : m /* c8 ig
  * @returns {HTML}
  */
 module.exports = function (self = globalThis) {
+  const {document} = self;
   const HTML = create(self);
-  const {document} = self;  const set = (map, tag, Class) => {
+  const set = (map, tag, Class) => {
     class CustomElement extends custom(HTML[Class]) {
       constructor(element) {
         super(element || document.createElement(tag));
@@ -161,7 +162,8 @@ module.exports = function (self = globalThis) {
     }
     map.set(tag, CustomElement);
     return CustomElement;
-  };  return new Proxy(new Map, {
+  };
+  return new Proxy(new Map, {
     get(map, tag) {
       const _ = tag.toLowerCase();
       return map.get(_) || set(map, _, tag);
