@@ -1,11 +1,12 @@
 const {join} = require('node:path');
 const {readFileSync, writeFileSync} = require('node:fs');
 
-addTypes('index.js');
-addTypes('all.js');
+addTypes('index.js', 'index.js');
+addTypes('all.js', 'all.js');
+addTypes('runtime.js', 'all.js');
 
-function addTypes(name) {
-  const source = join(__dirname, '..', 'node_modules', 'proxied-html-constructors', 'esm', name);
+function addTypes(name, foreign) {
+  const source = join(__dirname, '..', 'node_modules', 'proxied-html-constructors', 'esm', foreign);
   const dest = join(__dirname, '..', 'esm', name);
   const types = [];
   const re = /(\/\*\*[\s\S]+?\*\/)/g;
