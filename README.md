@@ -83,6 +83,75 @@ However, since this module primary target is the *DOM*, the `globalThis` referen
   </div>
 </details>
 <details>
+  <summary><strong>Does hydration affect the element state?</strong></summary>
+  <div>
+
+**No**. The way `custom-function` works can be summarized as such:
+
+```
+# a native <p> protoype chain
+HTMLParagraphElement -> HTMLElement -> Element -> Node
+
+# a <p> passed to new (class CustomP extends HTML.P {})
+CustomP -> HTMLParagraphElement -> HTMLElement -> Element -> Node
+
+# a <p> passed to class AnotherP extends CustomP {}
+AnotherP -> CustomP -> HTMLParagraphElement -> HTMLElement -> Element -> Node
+```
+
+In few words, creating an element through `new AnotherP` or upgrading an element via `new AnotherP(liveParagraph)` simply updates the prototype chain, without requiring the element to ever leave the DOM or change its native nature, as that's preserved down the prototypal inheritance chain.
+
+As summary: *nonchalance* registries simply upgrade elements without changing their nature, exactly the same how native builtin extends work under the hood.
+
+  </div>
+</details>
+<details>
+  <summary><strong>Can any element become any other?</strong></summary>
+  <div>
+
+**No**. Metaphorically speaking, *HTML* elements have both a semantic meaning and a well defined, and desired, utility once live, same way a *JS* function will be, forever, a *JS* function, even if `Object.setPrototypeOf(() => {}, Number.prototype)` happens ... can you see, or agree, how wrong is that?
+
+This module doesn't, doesn't wont to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... quite inconvenient if you ask me!
+
+  </div>
+</details>
+<details>
+  <summary><strong>Can I use this with React or other fameworks?</strong></summary>
+  <div>
+
+**Yes**. The *DOM* is the *DOM*, no matter how many indirections there are in between. Your DX might vary, accordingly with the framework features, but if *React* is what you are after, nobody is stopping you to abuse the `ref` feature to upgrade on *render* any element with *nonchalance*.
+
+```js
+class MyP extends HTML.P {
+  constructor(...args) {
+    super(...args);
+    // avoid any need for bind or repeated listeners added
+    // https://webreflection.medium.com/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
+    this.addEventListener('click', this);
+  }
+  handleEvent(event) {
+    console.log('You clicked me!');
+  }
+}
+
+function Component() {
+  // facade for useRef as example
+  const p = {
+    value: void 0,
+    get current() { return this.value },
+    set current(element) {
+      this.value = new MyP(element);
+    }
+  };
+  return <p ref={p}>click me</p>;
+}
+```
+
+See it [live on codepen](https://codepen.io/WebReflection/pen/poOzEJR?editors=0010) to play around it.
+
+  </div>
+</details>
+<details>
   <summary><strong>What's the difference between default, all and runtime exports?</strong></summary>
   <div>
 
@@ -127,14 +196,16 @@ I've talked ad nauseam [about this topic](https://webreflection.medium.com/in-fa
   * the success of *jQuery*, which is still the most deployed and used library out there, is based on native elements manipulation and augmentation
   * every browser but Safari/WebKit supports builtin extends and use it in the wild, signaling WebKit concerns are somehow not so relevant
   * the API specification [still mention builtin extends](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example), implying it's not really a blocker for the Web
-  * with ES2015 and classes, the only troublesome constructors have always been DOM classes and their *Illegal Constructor* error ... well, it's time to say goodbye to thos legacy constraints
+  * with ES2015 and classes, the only troublesome constructors have always been DOM classes and their *Illegal Constructor* error ... well, it's time to say goodbye to those legacy constraints
 
-In short, if you read again the most basic `Passord` class example, it's clear that builtin extends can go way beyond, and with ease, any complex and verbose and slower *ShadowDOM* based solution, so that keep being stubborn about avoiding graceful enhancement on what's the Web we surf daily is just counter-productive, and years have to pass before everyone can actually benefit from latest overly-complicated *Shadow DOM* realm, which includes [accessibility issues](https://github.com/WebKit/standards-positions/issues/97#issuecomment-1424415317), constraints, limited use cases compared to builtin extends, and so on ... so here there's something that's meant to work as *ECMAScript* specification compliant, without bothering legacy DOM world and all these distracting and time consuming debates around builtin extends while the Web move forward.
+In short, if you read again the most basic `Passord` class example, it's clear that builtin extends can go way beyond, and with ease, any complex and verbose and slower *ShadowDOM* based solution, so that keep being stubborn about avoiding graceful enhancement on what's the Web we surf daily is just counter-productive, and years have to pass before everyone can actually benefit from latest overly-complicated *Shadow DOM* realm, which includes [accessibility issues](https://github.com/WebKit/standards-positions/issues/97#issuecomment-1424415317), constraints, limited use cases compared to builtin extends, and so on ... so here there's something that's meant to work as *ECMAScript* specification compliant, without bothering legacy DOM world and all these distracting and time consuming debates around builtin extends while the Web moves forward.
 
 This module goal is to provide a choice that doesn't suffer any of the problems developers love to talk about builtin extends:
 
   * "*do I need a polyfill forever?*" no, you need 655 bytes plus the rest to forget about this issue
   * "*will builtin extends be removed from specs?*" who cares, with just 655 bytes libary helper you're good to go
+
+Strawberry on top, this module would work even within oepened or closed ShadowDOM content, as long as the logic provides upgrades or uses classes programmatically.
 
   </div>
 </details>
