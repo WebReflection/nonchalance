@@ -2,7 +2,7 @@ import nonchalance from '../esm/index.js';
 
 const self = {
   document: {
-    createElement: nodeName => ({nodeName})
+    createElement: localName => ({localName})
   },
   HTMLAnchorElement: class HTMLAnchorElement {},
   HTMLDivElement: class HTMLDivElement {},
@@ -29,4 +29,4 @@ class Element extends HTML.Element {}
 
 console.assert((new A).a === 'A');
 console.assert((new Anchor).a === 'Anchor');
-console.assert(new A({}).nodeName === 'a')
+console.assert(new A({}).localName === 'a');
