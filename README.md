@@ -155,7 +155,7 @@ See it [live on codepen](https://codepen.io/WebReflection/pen/poOzEJR?editors=00
   <summary><strong>What's the difference between default, all and runtime exports?</strong></summary>
   <div>
 
-The `nonchalance` default export (brotli 655, gzip 751) uses a pre-compiled/defined *Map* of all known, and *not deprecated* HTML tags directly from [proxied-html-constructors](https://github.com/WebReflection/proxied-html-constructors#readme) module, while the `nonchalance/all` export (brotli 678, gzip 782) exposes also obsolete or deprecated tags, still using `proxied-html-constructors` as reference.
+The `nonchalance` default export (brotli 655, gzip 751) uses a pre-compiled/defined *Map* of all known, and *not deprecated* HTML tags directly from [proxied-html-constructors](https://github.com/WebReflection/proxied-html-constructors#readme) module, while the `nonchalance/all` export (brotli 678, gzip 782) exposes also obsolete or deprecated tags, using `proxied-html-constructors/all` as reference.
 
 The strength of `proxied-html-constructors` module is that *it actually throws an error* when a not-known element is being created, so that it's easier to spot errors at build or testing time, because the related *Class* might not exist or be known ahead of time.
 
@@ -165,7 +165,7 @@ On the other hand, if you are a "*bytes saver maniac*", the `nonchalance/runtime
 
 That means that `HTML.Shenanigan` won't ever throw an error, but it will silently create an extend of `HTMLUnknownElement`, also allocating extra heap to access such constructor via `document.createElement(anyTag).constructor`.
 
-If *vaporware* or *minimal working code* is your code, and you are confident you don't need any guard other variants provide, then `nonchalance/runtime` will kinda always work forever, with slighter extra *GC* pressure than others, and without guarantees a typo written in the extend will possibly show-up at integration testing time ... and if that's your cup of tea, go ahead with this even smaller variant 🦄
+If *vaporware* or *minimal working code* is your choice though, and you are confident you don't need any guard other variants provide, then `nonchalance/runtime` will kinda always work forever, with slighter extra *GC* pressure than others, and without guarantees a typo written in the extend will possibly show-up at integration testing time ... and if that's your cup of tea, go ahead with this even smaller variant 🦄
 
 Last, but not least, please note that `nonchalance/runtime` types include all known *HTML* elements, including deprecated and obsolete ones, simply because it cannot guard anything, so that any element would be automatically enabled, even the non standard, or not existent one, beside legacy.
 
@@ -175,7 +175,7 @@ Last, but not least, please note that `nonchalance/runtime` types include all kn
   <summary><strong>Why using a default export instead of a named one?</strong></summary>
   <div>
 
-Unrelated to this module but worth clarifying here why, this *dual module* simply does the right thing: it exposes a `default export` in *ESM* and a `module.exports = ...` in the *CJS* world, without ugly `__esModule` workarounds or similar tricks.
+Unrelated to this module but worth clarifying here why, this *dual module* simply does the right thing: it exposes a `default export` in *ESM* and a direct `module.exports = ...` in the *CJS* world, without ugly `__esModule` workarounds or similar tricks.
 
 The reason I didn't go for a named export in pretty much any of this module, or this module dependencies, is that everyone is *free* to decide how to name the ability to create a scoped registry, among the way to name imports from its submodule within this code.
 
