@@ -111,7 +111,7 @@ As summary: *nonchalance* registries simply upgrade elements without changing th
 
 **No**. Metaphorically speaking, *HTML* elements have both a semantic meaning and a well defined, and desired, utility once live, same way a *JS* function will be, forever, a *JS* function, even if `Object.setPrototypeOf(() => {}, Number.prototype)` happens ... can you see, or agree, how wrong is that?
 
-This module doesn't, doesn't wont to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... quite inconvenient if you ask me!
+This module doesn't, doesn't want to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... quite inconvenient if you ask me!
 
   </div>
 </details>
