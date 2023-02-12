@@ -1,0 +1,62 @@
+{
+  "name": "nonchalance",
+  "version": "0.0.1",
+  "description": "The easiest way to augment DOM builtin elements",
+  "main": "./cjs/index.js",
+  "types": "./types/index.d.ts",
+  "typesVersions": {
+    ">=4.9": {
+      "*": [
+        "types/*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "npm run build:all && npm run build:types && npm run cjs && npm run rollup && npm run types && npm run test && npm run size",
+    "build:all": "cat esm/index.js | sed 's/proxied-html-constructors/proxied-html-constructors\\/all/' > esm/all.js",
+    "build:types": "node rollup/types.cjs",
+    "cjs": "ascjs --no-default esm cjs",
+    "rollup": "rollup --config rollup/es.config.js",
+    "test": "c8 node test/index.js",
+    "coverage": "mkdir -p ./coverage; c8 report --reporter=text-lcov > ./coverage/lcov.info",
+    "size": "echo -e \"\\x1b[1mes.js\\x1b[0m $(cat es.js | brotli | wc -c)\";",
+    "types": "tsc -p ."
+  },
+  "keywords": [
+    "DOM",
+    "builtin",
+    "extend"
+  ],
+  "author": "Andrea Giammarchi",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "ascjs": "^5.0.1",
+    "c8": "^7.12.0",
+    "rollup": "^3.15.0",
+    "typescript": "^4.9.5"
+  },
+  "module": "./esm/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "default": "./cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "unpkg": "es.js",
+  "dependencies": {
+    "custom-function": "^1.0.2",
+    "proxied-html-constructors": "^0.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebReflection/nonchalance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WebReflection/nonchalance/issues"
+  },
+  "homepage": "https://github.com/WebReflection/nonchalance#readme"
+}
