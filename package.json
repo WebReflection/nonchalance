@@ -12,16 +12,17 @@
     }
   },
   "scripts": {
-    "build": "npm run build:all && npm run build:types && npm run cjs && npm run rollup && npm run types && npm run test && npm run size:all && npm run size:es && npm run size:runtime",
+    "build": "npm run build:all && npm run build:types && npm run cjs && npm run rollup && npm run types && npm run test && npm run size:all && npm run size:es && npm run size:runtime && npm run size:ce",
     "build:all": "cat esm/index.js | sed 's/proxied-html-constructors/proxied-html-constructors\\/all/' > esm/all.js",
     "build:types": "node rollup/types.cjs",
     "cjs": "ascjs --no-default esm cjs",
-    "rollup": "rollup --config rollup/es.config.js && rollup --config rollup/runtime.config.js && rollup --config rollup/all.config.js",
+    "rollup": "rollup --config rollup/es.config.js && rollup --config rollup/runtime.config.js && rollup --config rollup/all.config.js && rollup --config rollup/ce.config.js",
     "test": "c8 node test/index.js",
     "coverage": "mkdir -p ./coverage; c8 report --reporter=text-lcov > ./coverage/lcov.info",
     "size:all": "echo -e \"\\x1b[1mall.js\\x1b[0m brotli $(cat all.js | brotli | wc -c)\";echo -e \"\\x1b[1mall.js\\x1b[0m gzip $(cat all.js | gzip | wc -c)\"",
     "size:es": "echo -e \"\\x1b[1mes.js\\x1b[0m brotli $(cat es.js | brotli | wc -c)\";echo -e \"\\x1b[1mes.js\\x1b[0m gzip $(cat es.js | gzip | wc -c)\"",
     "size:runtime": "echo -e \"\\x1b[1mruntime.js\\x1b[0m brotli $(cat runtime.js | brotli | wc -c)\";echo -e \"\\x1b[1mruntime.js\\x1b[0m gzip $(cat runtime.js | gzip | wc -c)\"",
+    "size:ce": "echo -e \"\\x1b[1mce.js\\x1b[0m brotli $(cat ce.js | brotli | wc -c)\";echo -e \"\\x1b[1mce.js\\x1b[0m gzip $(cat ce.js | gzip | wc -c)\"",
     "types": "tsc -p ."
   },
   "keywords": [
@@ -52,6 +53,11 @@
       "import": "./esm/all.js",
       "default": "./cjs/all.js"
     },
+    "./ce": {
+      "types": "./types/ce.d.ts",
+      "import": "./esm/ce.js",
+      "default": "./cjs/ce.js"
+    },
     "./runtime": {
       "types": "./types/runtime.d.ts",
       "import": "./esm/runtime.js",
@@ -67,6 +73,7 @@
   "unpkg": "es.js",
   "dependencies": {
     "custom-function": "^1.0.2",
+    "element-notifier": "^1.1.2",
     "proxied-html-constructors": "^0.1.4"
   },
   "repository": {

@@ -4,6 +4,7 @@ const {readFileSync, writeFileSync} = require('node:fs');
 addTypes('index.js', 'index.js');
 addTypes('all.js', 'all.js');
 addTypes('runtime.js', 'all.js');
+addTypes('ce.js', 'all.js');
 
 function addTypes(name, foreign) {
   const source = join(__dirname, '..', 'node_modules', 'proxied-html-constructors', 'esm', foreign);
