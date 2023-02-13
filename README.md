@@ -137,6 +137,37 @@ See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?edi
   </div>
 </details>
 <details>
+  <summary><strong>What about Custom Elements callbacks?</strong></summary>
+  <div>
+
+There's [a module for that](https://github.com/WebReflection/as-custom-element#readme) so that adding Custom Elements like callbacks would be as easy as that:
+
+```js
+import {upgrade} from 'as-custom-element';
+
+class AsCustomElement extends HTML.Div {
+  observedAttributes = ['test'];
+  constructor(...args) {
+    upgrade(super(...args));
+  }
+  attributeChangedCallback(name, before, now) {
+    console.log(`name was ${before} and no is ${now}`);
+  }
+  connectedCallback() {
+    console.log('I am connected 🥳');
+  }
+  disconnectedCallback() {
+    console.log('bye bye');
+  }
+}
+```
+
+See this demo [live on codepen](https://codepen.io/WebReflection/pen/OJoLwxr?editors=0011) to play around it.
+
+
+  </div>
+</details>
+<details>
   <summary><strong>Can any element become any other?</strong></summary>
   <div>
 
