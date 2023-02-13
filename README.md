@@ -198,7 +198,7 @@ That means that `HTML.Shenanigan` won't ever throw an error, but it will silentl
 
 If *vaporware* or *minimal working code* is your choice though, and you are confident you don't need any guard other variants provide, then `nonchalance/runtime` will kinda always work forever, with slighter extra *GC* pressure than others, and without guarantees a typo written in the extend will possibly show-up at integration testing time ... and if that's your cup of tea, go ahead with this even smaller variant 🦄
 
-Last, but not least, please note that `nonchalance/runtime` types include all known *HTML* elements, including deprecated and obsolete ones, simply because it cannot guard anything, so that any element would be automatically enabled, even the non standard, or not existent one, beside legacy.
+Last, but not least, please note that `nonchalance/runtime` types include all known *HTML* elements, [including deprecated and obsolete ones](https://codepen.io/WebReflection/full/rNZBYLx), simply because it cannot guard anything, so that any element would be automatically enabled, even the non standard, or not existent one, beside legacy.
 
   </div>
 </details>
