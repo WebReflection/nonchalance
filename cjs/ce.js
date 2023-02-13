@@ -3,6 +3,9 @@
 const custom = (m => /* c8 ignore start */ m.__esModule ? m.default : m /* c8 ignore stop */)(require('custom-function/factory'));
 const {notify} = require('element-notifier');
 
+// if interested or wondering, this code is a rip-off of
+// https://github.com/WebReflection/as-custom-element#readme
+
 const attributeChangedCallback = 'attributeChangedCallback';
 const connectedCallback = 'connectedCallback';
 const disconnectedCallback = 'disconnectedCallback';
@@ -20,24 +23,30 @@ const attributeChanged = records => {
 };
 
 const upgrade = element => {
-  observed.add(element);
-  if (element[attributeChangedCallback]) {
-    const mo = new MutationObserver(attributeChanged);
-    mo.observe(element, {
+  const {
+    [attributeChangedCallback]: attributes,
+    [connectedCallback]: connect,
+    [disconnectedCallback]: disconnect
+  } = element;
+  if (attributes) {
+    new MutationObserver(attributeChanged).observe(element, {
       attributes: true,
       attributeOldValue: true,
       attributeFilter: element.constructor.observedAttributes.map(
         attributeName => {
           const value = element.getAttribute(attributeName);
           if (value != null)
-            element[attributeChangedCallback](attributeName, null, value);
+            attributes.call(element, attributeName, null, value);
           return attributeName;
         }
       )
     });
   }
-  if (element[connectedCallback] && element.isConnected)
-    element[connectedCallback]();
+  if (connect || disconnect) {
+    observed.add(element);
+    if (element.isConnected)
+      connect?.call(element);
+  }
 };
 
 const {observe} = notify((element, connected) => {
@@ -48,8 +57,7 @@ const {observe} = notify((element, connected) => {
 const $attachShadow = Element.prototype.attachShadow;
 Element.prototype.attachShadow = function attachShadow(init) {
   const shadowRoot = $attachShadow.call(this, init);
-  observe(shadowRoot);
-  return shadowRoot;
+  return observe(shadowRoot), shadowRoot;
 };
 
 /**

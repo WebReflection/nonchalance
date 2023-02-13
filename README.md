@@ -164,6 +164,9 @@ class AsCustomElement extends HTML.Div {
 
 See this demo [live on codepen](https://codepen.io/WebReflection/pen/OJoLwxr?editors=0011) to play around it.
 
+**Alternatively though**, this module exports a `/ce` too (716 bytes brotli, 802 bytes gzipped) which goal is to automatically register as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
+
+See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?editors=0011) to have an idea how that works, and how much boilerplate it saves, compared to the previous example.
 
   </div>
 </details>
