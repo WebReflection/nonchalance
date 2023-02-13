@@ -151,7 +151,7 @@ class AsCustomElement extends HTML.Div {
     upgrade(super(...args), this);
   }
   attributeChangedCallback(name, before, now) {
-    console.log(`name was ${before} and no is ${now}`);
+    console.log(`${name} was ${before} and now is ${now}`);
   }
   connectedCallback() {
     console.log('I am connected 🥳');
