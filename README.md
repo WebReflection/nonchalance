@@ -148,7 +148,7 @@ import {upgrade} from 'as-custom-element';
 class AsCustomElement extends HTML.Div {
   observedAttributes = ['test'];
   constructor(...args) {
-    upgrade(super(...args));
+    upgrade(super(...args), this);
   }
   attributeChangedCallback(name, before, now) {
     console.log(`name was ${before} and no is ${now}`);
