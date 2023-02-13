@@ -43,14 +43,17 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./esm/index.js",
       "default": "./cjs/index.js"
     },
     "./all": {
+      "types": "./types/all.d.ts",
       "import": "./esm/all.js",
       "default": "./cjs/all.js"
     },
     "./runtime": {
+      "types": "./types/runtime.d.ts",
       "import": "./esm/runtime.js",
       "default": "./cjs/runtime.js"
     },
@@ -59,7 +62,7 @@
   "unpkg": "es.js",
   "dependencies": {
     "custom-function": "^1.0.2",
-    "proxied-html-constructors": "^0.1.3"
+    "proxied-html-constructors": "^0.1.4"
   },
   "repository": {
     "type": "git",
