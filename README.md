@@ -113,6 +113,8 @@ As summary: *nonchalance* registries simply upgrade elements without changing th
 
 This module doesn't want to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
 
+In short, same way `customElements.define('my-link', class extends HTMLDivElement {}, {extends: 'a'})` makes no sense, this module trust its users non-sense classes will be avoided.
+
   </div>
 </details>
 <details>
