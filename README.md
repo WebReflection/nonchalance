@@ -101,19 +101,7 @@ AnotherP -> CustomP -> HTMLParagraphElement -> HTMLElement -> Element -> Node
 
 In few words, creating an element through `new AnotherP` or upgrading an element via `new AnotherP(liveParagraph)` simply updates the prototype chain, without requiring the element to ever leave the DOM or change its native nature, as that's preserved down the prototypal inheritance chain.
 
-As summary: *nonchalance* registries simply upgrade elements without changing their nature, exactly the same how native builtin extends work under the hood.
-
-  </div>
-</details>
-<details>
-  <summary><strong>Can any element become any other?</strong></summary>
-  <div>
-
-**No**. Metaphorically speaking, *HTML* elements have both a semantic meaning and a well defined, and desired, utility once live, same way a *JS* function will be, forever, a *JS* function, even if `Object.setPrototypeOf(() => {}, Number.prototype)` happens ... can you see, or agree, how wrong is that?
-
-This module doesn't want to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
-
-In short, same way `customElements.define('my-link', class extends HTMLDivElement {}, {extends: 'a'})` makes no sense, this module trust its users non-sense classes will be avoided.
+As summary: *nonchalance* registries simply upgrade elements without changing their nature, exactly the same way native builtin extends work under the hood.
 
   </div>
 </details>
@@ -145,6 +133,18 @@ ReactDOM.render(
 The `ref` utility could be also used as decorator and it doesn't affect any feature of regular *nonchalance* classes plus each element is upgraded only once so that it's safe to add listeners or logic in the constructor.
 
 See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?editors=0011) to play around it.
+
+  </div>
+</details>
+<details>
+  <summary><strong>Can any element become any other?</strong></summary>
+  <div>
+
+**No**. Metaphorically speaking, *HTML* elements have both a semantic meaning and a well defined, and desired, utility once live, same way a *JS* function will be, forever, a *JS* function, even if `Object.setPrototypeOf(() => {}, Number.prototype)` happens ... can you see, or agree, how wrong is that?
+
+This module doesn't want to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
+
+In short, same way `customElements.define('my-link', class extends HTMLDivElement {}, {extends: 'a'})` makes no sense, this module trust its users non-sense classes will be avoided.
 
   </div>
 </details>
