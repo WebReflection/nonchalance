@@ -121,35 +121,30 @@ In short, same way `customElements.define('my-link', class extends HTMLDivElemen
   <summary><strong>Can I use this with React or other fameworks?</strong></summary>
   <div>
 
-**Yes**. The *DOM* is the *DOM*, no matter how many indirections there are in between. Your DX might vary, accordingly with the framework features, but if *React* is what you are after, nobody is stopping you to abuse the `ref` feature to upgrade on *render* any element with *nonchalance*.
+**Yes**. The *DOM* is the *DOM*, no matter how many indirections there are in between. Your DX might vary, accordingly with the framework features, but if *React* is what you are after, there is a tiny yet elegant and `ref` based way to promote regular JSX nodes with *nonchalance*:
 
 ```js
-class MyP extends HTML.P {
+import referenced from 'nonchalance/ref';
+
+// indicate the Component will be passed as reference
+// Note: this is just a light Proxy that grants class integrity
+// regardless of its usage in the wild
+const Component = referenced(class extends HTML.Div {
   constructor(...args) {
     super(...args);
-    // avoid any need for bind or repeated listeners added
-    // https://webreflection.medium.com/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
-    this.addEventListener('click', this);
+    this.addEventListener('click', console.log);
   }
-  handleEvent(event) {
-    console.log('You clicked me!');
-  }
-}
+});
 
-function Component() {
-  // facade for useRef as example
-  const p = {
-    value: void 0,
-    get current() { return this.value },
-    set current(element) {
-      this.value = new MyP(element);
-    }
-  };
-  return <p ref={p}>click me</p>;
-}
+ReactDOM.render(
+  <div ref={Component}>click me</div>,
+  document.body
+);
 ```
 
-See it [live on codepen](https://codepen.io/WebReflection/pen/poOzEJR?editors=0010) to play around it.
+The `ref` utility could be also used as decorator and it doesn't affect any feature of regular *nonchalance* classes plus each element is upgraded only once so that it's safe to add listeners or logic in the constructor.
+
+See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?editors=0011) to play around it.
 
   </div>
 </details>
