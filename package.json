@@ -57,6 +57,11 @@
       "import": "./esm/runtime.js",
       "default": "./cjs/runtime.js"
     },
+    "./ref": {
+      "types": "./types/ref.d.ts",
+      "import": "./esm/ref.js",
+      "default": "./cjs/ref.js"
+    },
     "./package.json": "./package.json"
   },
   "unpkg": "es.js",
