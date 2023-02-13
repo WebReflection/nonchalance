@@ -1,6 +1,6 @@
 {
   "name": "nonchalance",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "The easiest way to augment DOM builtin elements",
   "main": "./cjs/index.js",
   "types": "./types/index.d.ts",
