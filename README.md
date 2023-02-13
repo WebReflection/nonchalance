@@ -8,7 +8,7 @@ The easiest way to augment DOM builtin elements:
 
   * **No polyfills needed**, all modern browsers just work™️
   * elements can be either created from scratch or upgraded on demand for **graceful hydration**
-  * fits into 226 bytes (runtime) or 655 bytes (default) once served minified via default brotli settings (283 runtime or 751 via default gzip settings)
+  * fits into 226 bytes (runtime) or 576 bytes (default) once served minified via default brotli settings (283 runtime or 666 via default gzip settings)
 
 ### Example - A more secure password field:
 
@@ -111,7 +111,7 @@ As summary: *nonchalance* registries simply upgrade elements without changing th
 
 **No**. Metaphorically speaking, *HTML* elements have both a semantic meaning and a well defined, and desired, utility once live, same way a *JS* function will be, forever, a *JS* function, even if `Object.setPrototypeOf(() => {}, Number.prototype)` happens ... can you see, or agree, how wrong is that?
 
-This module doesn't, doesn't want to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... quite inconvenient if you ask me!
+This module doesn't want to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
 
   </div>
 </details>
@@ -155,7 +155,7 @@ See it [live on codepen](https://codepen.io/WebReflection/pen/poOzEJR?editors=00
   <summary><strong>What's the difference between default, all and runtime exports?</strong></summary>
   <div>
 
-The `nonchalance` default export (brotli 655, gzip 751) uses a pre-compiled/defined *Map* of all known, and *not deprecated* HTML tags directly from [proxied-html-constructors](https://github.com/WebReflection/proxied-html-constructors#readme) module, while the `nonchalance/all` export (brotli 678, gzip 782) exposes also obsolete or deprecated tags, using `proxied-html-constructors/all` as reference.
+The `nonchalance` default export (brotli 576, gzip 666) uses a pre-compiled/defined *Map* of all known, and *not deprecated* HTML tags directly from [proxied-html-constructors](https://github.com/WebReflection/proxied-html-constructors#readme) module, while the `nonchalance/all` export (brotli 682, gzip 782) exposes also obsolete or deprecated tags, using `proxied-html-constructors/all` as reference.
 
 The strength of `proxied-html-constructors` module is that *it actually throws an error* when a not-known element is being created, so that it's easier to spot errors at build or testing time, because the related *Class* might not exist or be known ahead of time.
 
@@ -197,15 +197,26 @@ I've talked ad nauseam [about this topic](https://webreflection.medium.com/in-fa
   * every browser but Safari/WebKit supports builtin extends and use it in the wild, signaling WebKit concerns are somehow not so relevant
   * the API specification [still mention builtin extends](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example), implying it's not really a blocker for the Web
   * with ES2015 and classes, the only troublesome constructors have always been DOM classes and their *Illegal Constructor* error ... well, it's time to say goodbye to those legacy constraints
+  * with modern ES2019 features, such as private fields, the Liskov substitution argument less of a concern, as extra logic can be confined within private fields and methods, lowering the risk of collision for future elements updates
 
 In short, if you read again the most basic `Passord` class example, it's clear that builtin extends can go way beyond, and with ease, any complex and verbose and slower *ShadowDOM* based solution, so that keep being stubborn about avoiding graceful enhancement on what's the Web we surf daily is just counter-productive, and years have to pass before everyone can actually benefit from latest overly-complicated *Shadow DOM* realm, which includes [accessibility issues](https://github.com/WebKit/standards-positions/issues/97#issuecomment-1424415317), constraints, limited use cases compared to builtin extends, and so on ... so here there's something that's meant to work as *ECMAScript* specification compliant, without bothering legacy DOM world and all these distracting and time consuming debates around builtin extends while the Web moves forward.
 
 This module goal is to provide a choice that doesn't suffer any of the problems developers love to talk about builtin extends:
 
-  * "*do I need a polyfill forever?*" no, you need 655 bytes plus the rest to forget about this issue
-  * "*will builtin extends be removed from specs?*" who cares, with just 655 bytes libary helper you're good to go
+  * "*do I need a polyfill forever?*" no, you need 576 bytes (or just 226) plus your code to forget about this issue
+  * "*will builtin extends be removed from specs?*" who cares, with just 576 bytes (or 226) libary helper you're good to go
 
 Strawberry on top, this module would work even within oepened or closed ShadowDOM content, as long as the logic provides upgrades or uses classes programmatically.
+
+  </div>
+</details>
+<details>
+  <summary><strong>What's with the social image?</strong></summary>
+  <div>
+
+There's nothing more liberating than being a careless kid that plays in the mud against all "*don't do that!*" thinkers.
+
+This module somehow represents that feeling through the freedom modern JS features offer, showing an elegant, portable, and super lightweight alternative to the ever-increasing complexity offered instead by browser vendors and modern specifications, all necessary to force developers workaround the ability to simply extend builtins and preserve both simplicity and the great accessibility the Web is famous for.
 
   </div>
 </details>
