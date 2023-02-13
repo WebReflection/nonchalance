@@ -25,12 +25,14 @@ const upgrade = element => {
     mo.observe(element, {
       attributes: true,
       attributeOldValue: true,
-      attributeFilter: element.observedAttributes.map(attributeName => {
-        const value = element.getAttribute(attributeName);
-        if (value != null)
-          element[attributeChangedCallback](attributeName, null, value);
-        return attributeName;
-      })
+      attributeFilter: element.constructor.observedAttributes.map(
+        attributeName => {
+          const value = element.getAttribute(attributeName);
+          if (value != null)
+            element[attributeChangedCallback](attributeName, null, value);
+          return attributeName;
+        }
+      )
     });
   }
   if (element[connectedCallback] && element.isConnected)
