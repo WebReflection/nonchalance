@@ -1,288 +1,638 @@
 /**
- * @typedef {Object} HTML
- * @property {new () => HTMLAnchorElement} A
- * @property {new () => HTMLElement} Abbr
- * @property {new () => HTMLElement} Acronym
- * @property {new () => HTMLElement} Address
- * @property {new () => HTMLUnknownElement} Applet
- * @property {new () => HTMLAreaElement} Area
- * @property {new () => HTMLElement} Article
- * @property {new () => HTMLElement} Aside
- * @property {new () => HTMLAudioElement} Audio
- * @property {new () => HTMLElement} B
- * @property {new () => HTMLBaseElement} Base
- * @property {new () => HTMLElement} Bdi
- * @property {new () => HTMLElement} Bdo
- * @property {new () => HTMLUnknownElement} BGSound
- * @property {new () => HTMLElement} Big
- * @property {new () => HTMLUnknownElement} Blink
- * @property {new () => HTMLQuoteElement} BlockQuote
- * @property {new () => HTMLBodyElement} Body
- * @property {new () => HTMLBRElement} BR
- * @property {new () => HTMLButtonElement} Button
- * @property {new () => HTMLCanvasElement} Canvas
- * @property {new () => HTMLTableCaptionElement} Caption
- * @property {new () => HTMLElement} Center
- * @property {new () => HTMLElement} Cite
- * @property {new () => HTMLElement} Code
- * @property {new () => HTMLTableColElement} Col
- * @property {new () => HTMLTableColElement} ColGroup
- * @property {new () => HTMLUnknownElement} Content
- * @property {new () => HTMLDataElement} Data
- * @property {new () => HTMLDataListElement} DataList
- * @property {new () => HTMLElement} DD
- * @property {new () => HTMLModElement} Del
- * @property {new () => HTMLDetailsElement} Details
- * @property {new () => HTMLElement} Dfn
- * @property {new () => HTMLDialogElement} Dialog
- * @property {new () => HTMLDirectoryElement} Dir
- * @property {new () => HTMLDivElement} Div
- * @property {new () => HTMLDListElement} DL
- * @property {new () => HTMLElement} DT
- * @property {new () => HTMLElement} Em
- * @property {new () => HTMLEmbedElement} Embed
- * @property {new () => HTMLFieldSetElement} FieldSet
- * @property {new () => HTMLElement} FigCaption
- * @property {new () => HTMLElement} Figure
- * @property {new () => HTMLFontElement} Font
- * @property {new () => HTMLElement} Footer
- * @property {new () => HTMLFormElement} Form
- * @property {new () => HTMLFrameElement} Frame
- * @property {new () => HTMLFrameSetElement} FrameSet
- * @property {new () => HTMLHeadingElement} H1
- * @property {new () => HTMLHeadingElement} H2
- * @property {new () => HTMLHeadingElement} H3
- * @property {new () => HTMLHeadingElement} H4
- * @property {new () => HTMLHeadingElement} H5
- * @property {new () => HTMLHeadingElement} H6
- * @property {new () => HTMLHeadElement} Head
- * @property {new () => HTMLElement} Header
- * @property {new () => HTMLHRElement} HR
- * @property {new () => HTMLHtmlElement} Html
- * @property {new () => HTMLElement} I
- * @property {new () => HTMLIFrameElement} IFrame
- * @property {new () => HTMLUnknownElement} Image
- * @property {new () => HTMLImageElement} Img
- * @property {new () => HTMLInputElement} Input
- * @property {new () => HTMLModElement} Ins
- * @property {new () => HTMLElement} Kbd
- * @property {new () => HTMLUnknownElement} Keygen
- * @property {new () => HTMLLabelElement} Label
- * @property {new () => HTMLLegendElement} Legend
- * @property {new () => HTMLLIElement} LI
- * @property {new () => HTMLLinkElement} Link
- * @property {new () => HTMLElement} Main
- * @property {new () => HTMLMapElement} Map
- * @property {new () => HTMLElement} Mark
- * @property {new () => HTMLMarqueeElement} Marquee
- * @property {new () => HTMLMenuElement} Menu
- * @property {new () => HTMLUnknownElement} MenuItem
- * @property {new () => HTMLMetaElement} Meta
- * @property {new () => HTMLMeterElement} Meter
- * @property {new () => HTMLElement} Nav
- * @property {new () => HTMLElement} NoBR
- * @property {new () => HTMLElement} NoEmbed
- * @property {new () => HTMLElement} NoFrames
- * @property {new () => HTMLElement} NoScript
- * @property {new () => HTMLObjectElement} Object
- * @property {new () => HTMLOListElement} OL
- * @property {new () => HTMLOptGroupElement} OptGroup
- * @property {new () => HTMLOptionElement} Option
- * @property {new () => HTMLOutputElement} Output
- * @property {new () => HTMLParagraphElement} P
- * @property {new () => HTMLParamElement} Param
- * @property {new () => HTMLPictureElement} Picture
- * @property {new () => HTMLElement} PlainText
- * @property {new () => HTMLUnknownElement} Portal
- * @property {new () => HTMLPreElement} Pre
- * @property {new () => HTMLProgressElement} Progress
- * @property {new () => HTMLQuoteElement} Q
- * @property {new () => HTMLElement} RB
- * @property {new () => HTMLElement} RP
- * @property {new () => HTMLElement} RT
- * @property {new () => HTMLElement} RTC
- * @property {new () => HTMLElement} Ruby
- * @property {new () => HTMLElement} S
- * @property {new () => HTMLElement} Samp
- * @property {new () => HTMLScriptElement} Script
- * @property {new () => HTMLElement} Section
- * @property {new () => HTMLSelectElement} Select
- * @property {new () => HTMLUnknownElement} Shadow
- * @property {new () => HTMLSlotElement} Slot
- * @property {new () => HTMLElement} Small
- * @property {new () => HTMLSourceElement} Source
- * @property {new () => HTMLUnknownElement} Spacer
- * @property {new () => HTMLSpanElement} Span
- * @property {new () => HTMLElement} Strike
- * @property {new () => HTMLElement} Strong
- * @property {new () => HTMLStyleElement} Style
- * @property {new () => HTMLElement} Sub
- * @property {new () => HTMLElement} Summary
- * @property {new () => HTMLElement} Sup
- * @property {new () => HTMLTableElement} Table
- * @property {new () => HTMLTableSectionElement} TBody
- * @property {new () => HTMLTableCellElement} TD
- * @property {new () => HTMLTemplateElement} Template
- * @property {new () => HTMLTextAreaElement} TextArea
- * @property {new () => HTMLTableSectionElement} TFoot
- * @property {new () => HTMLTableCellElement} TH
- * @property {new () => HTMLTableSectionElement} THead
- * @property {new () => HTMLTimeElement} Time
- * @property {new () => HTMLTitleElement} Title
- * @property {new () => HTMLTableRowElement} TR
- * @property {new () => HTMLTrackElement} Track
- * @property {new () => HTMLElement} TT
- * @property {new () => HTMLElement} U
- * @property {new () => HTMLUListElement} UL
- * @property {new () => HTMLElement} Var
- * @property {new () => HTMLVideoElement} Video
- * @property {new () => HTMLElement} Wbr
- * @property {new () => HTMLPreElement} XMP
- */
-/**
  * Given an optional global context, returns a proxy that resolves
  * all tag names into their global constructors.
  * @property {globalThis} [self=globalThis]
  * @returns {HTML}
  */
-export default function _default(self?: typeof globalThis): HTML;
+declare function _default(self?: typeof globalThis): HTML;
+export default _default;
 export type HTML = {
-    A: new () => HTMLAnchorElement;
-    Abbr: new () => HTMLElement;
-    Acronym: new () => HTMLElement;
-    Address: new () => HTMLElement;
-    Applet: new () => HTMLUnknownElement;
-    Area: new () => HTMLAreaElement;
-    Article: new () => HTMLElement;
-    Aside: new () => HTMLElement;
-    Audio: new () => HTMLAudioElement;
-    B: new () => HTMLElement;
-    Base: new () => HTMLBaseElement;
-    Bdi: new () => HTMLElement;
-    Bdo: new () => HTMLElement;
-    BGSound: new () => HTMLUnknownElement;
-    Big: new () => HTMLElement;
-    Blink: new () => HTMLUnknownElement;
-    BlockQuote: new () => HTMLQuoteElement;
-    Body: new () => HTMLBodyElement;
-    BR: new () => HTMLBRElement;
-    Button: new () => HTMLButtonElement;
-    Canvas: new () => HTMLCanvasElement;
-    Caption: new () => HTMLTableCaptionElement;
-    Center: new () => HTMLElement;
-    Cite: new () => HTMLElement;
-    Code: new () => HTMLElement;
-    Col: new () => HTMLTableColElement;
-    ColGroup: new () => HTMLTableColElement;
-    Content: new () => HTMLUnknownElement;
-    Data: new () => HTMLDataElement;
-    DataList: new () => HTMLDataListElement;
-    DD: new () => HTMLElement;
-    Del: new () => HTMLModElement;
-    Details: new () => HTMLDetailsElement;
-    Dfn: new () => HTMLElement;
-    Dialog: new () => HTMLDialogElement;
-    Dir: new () => HTMLDirectoryElement;
-    Div: new () => HTMLDivElement;
-    DL: new () => HTMLDListElement;
-    DT: new () => HTMLElement;
-    Em: new () => HTMLElement;
-    Embed: new () => HTMLEmbedElement;
-    FieldSet: new () => HTMLFieldSetElement;
-    FigCaption: new () => HTMLElement;
-    Figure: new () => HTMLElement;
-    Font: new () => HTMLFontElement;
-    Footer: new () => HTMLElement;
-    Form: new () => HTMLFormElement;
-    Frame: new () => HTMLFrameElement;
-    FrameSet: new () => HTMLFrameSetElement;
-    H1: new () => HTMLHeadingElement;
-    H2: new () => HTMLHeadingElement;
-    H3: new () => HTMLHeadingElement;
-    H4: new () => HTMLHeadingElement;
-    H5: new () => HTMLHeadingElement;
-    H6: new () => HTMLHeadingElement;
-    Head: new () => HTMLHeadElement;
-    Header: new () => HTMLElement;
-    HR: new () => HTMLHRElement;
-    Html: new () => HTMLHtmlElement;
-    I: new () => HTMLElement;
-    IFrame: new () => HTMLIFrameElement;
-    Image: new () => HTMLUnknownElement;
-    Img: new () => HTMLImageElement;
-    Input: new () => HTMLInputElement;
-    Ins: new () => HTMLModElement;
-    Kbd: new () => HTMLElement;
-    Keygen: new () => HTMLUnknownElement;
-    Label: new () => HTMLLabelElement;
-    Legend: new () => HTMLLegendElement;
-    LI: new () => HTMLLIElement;
-    Link: new () => HTMLLinkElement;
-    Main: new () => HTMLElement;
-    Map: new () => HTMLMapElement;
-    Mark: new () => HTMLElement;
-    Marquee: new () => HTMLMarqueeElement;
-    Menu: new () => HTMLMenuElement;
-    MenuItem: new () => HTMLUnknownElement;
-    Meta: new () => HTMLMetaElement;
-    Meter: new () => HTMLMeterElement;
-    Nav: new () => HTMLElement;
-    NoBR: new () => HTMLElement;
-    NoEmbed: new () => HTMLElement;
-    NoFrames: new () => HTMLElement;
-    NoScript: new () => HTMLElement;
-    Object: new () => HTMLObjectElement;
-    OL: new () => HTMLOListElement;
-    OptGroup: new () => HTMLOptGroupElement;
-    Option: new () => HTMLOptionElement;
-    Output: new () => HTMLOutputElement;
-    P: new () => HTMLParagraphElement;
-    Param: new () => HTMLParamElement;
-    Picture: new () => HTMLPictureElement;
-    PlainText: new () => HTMLElement;
-    Portal: new () => HTMLUnknownElement;
-    Pre: new () => HTMLPreElement;
-    Progress: new () => HTMLProgressElement;
-    Q: new () => HTMLQuoteElement;
-    RB: new () => HTMLElement;
-    RP: new () => HTMLElement;
-    RT: new () => HTMLElement;
-    RTC: new () => HTMLElement;
-    Ruby: new () => HTMLElement;
-    S: new () => HTMLElement;
-    Samp: new () => HTMLElement;
-    Script: new () => HTMLScriptElement;
-    Section: new () => HTMLElement;
-    Select: new () => HTMLSelectElement;
-    Shadow: new () => HTMLUnknownElement;
-    Slot: new () => HTMLSlotElement;
-    Small: new () => HTMLElement;
-    Source: new () => HTMLSourceElement;
-    Spacer: new () => HTMLUnknownElement;
-    Span: new () => HTMLSpanElement;
-    Strike: new () => HTMLElement;
-    Strong: new () => HTMLElement;
-    Style: new () => HTMLStyleElement;
-    Sub: new () => HTMLElement;
-    Summary: new () => HTMLElement;
-    Sup: new () => HTMLElement;
-    Table: new () => HTMLTableElement;
-    TBody: new () => HTMLTableSectionElement;
-    TD: new () => HTMLTableCellElement;
-    Template: new () => HTMLTemplateElement;
-    TextArea: new () => HTMLTextAreaElement;
-    TFoot: new () => HTMLTableSectionElement;
-    TH: new () => HTMLTableCellElement;
-    THead: new () => HTMLTableSectionElement;
-    Time: new () => HTMLTimeElement;
-    Title: new () => HTMLTitleElement;
-    TR: new () => HTMLTableRowElement;
-    Track: new () => HTMLTrackElement;
-    TT: new () => HTMLElement;
-    U: new () => HTMLElement;
-    UL: new () => HTMLUListElement;
-    Var: new () => HTMLElement;
-    Video: new () => HTMLVideoElement;
-    Wbr: new () => HTMLElement;
-    XMP: new () => HTMLPreElement;
+    A: new () => CustomHTMLAnchorElement;
+    Abbr: new () => CustomHTMLElement;
+    Acronym: new () => CustomHTMLElement;
+    Address: new () => CustomHTMLElement;
+    Applet: new () => CustomHTMLUnknownElement;
+    Area: new () => CustomHTMLAreaElement;
+    Article: new () => CustomHTMLElement;
+    Aside: new () => CustomHTMLElement;
+    Audio: new () => CustomHTMLAudioElement;
+    B: new () => CustomHTMLElement;
+    Base: new () => CustomHTMLBaseElement;
+    Bdi: new () => CustomHTMLElement;
+    Bdo: new () => CustomHTMLElement;
+    BGSound: new () => CustomHTMLUnknownElement;
+    Big: new () => CustomHTMLElement;
+    Blink: new () => CustomHTMLUnknownElement;
+    BlockQuote: new () => CustomHTMLQuoteElement;
+    Body: new () => CustomHTMLBodyElement;
+    BR: new () => CustomHTMLBRElement;
+    Button: new () => CustomHTMLButtonElement;
+    Canvas: new () => CustomHTMLCanvasElement;
+    Caption: new () => CustomHTMLTableCaptionElement;
+    Center: new () => CustomHTMLElement;
+    Cite: new () => CustomHTMLElement;
+    Code: new () => CustomHTMLElement;
+    Col: new () => CustomHTMLTableColElement;
+    ColGroup: new () => CustomHTMLTableColElement;
+    Content: new () => CustomHTMLUnknownElement;
+    Data: new () => CustomHTMLDataElement;
+    DataList: new () => CustomHTMLDataListElement;
+    DD: new () => CustomHTMLElement;
+    Del: new () => CustomHTMLModElement;
+    Details: new () => CustomHTMLDetailsElement;
+    Dfn: new () => CustomHTMLElement;
+    Dialog: new () => CustomHTMLDialogElement;
+    Dir: new () => CustomHTMLDirectoryElement;
+    Div: new () => CustomHTMLDivElement;
+    DL: new () => CustomHTMLDListElement;
+    DT: new () => CustomHTMLElement;
+    Em: new () => CustomHTMLElement;
+    Embed: new () => CustomHTMLEmbedElement;
+    FieldSet: new () => CustomHTMLFieldSetElement;
+    FigCaption: new () => CustomHTMLElement;
+    Figure: new () => CustomHTMLElement;
+    Font: new () => CustomHTMLFontElement;
+    Footer: new () => CustomHTMLElement;
+    Form: new () => CustomHTMLFormElement;
+    Frame: new () => CustomHTMLFrameElement;
+    FrameSet: new () => CustomHTMLFrameSetElement;
+    H1: new () => CustomHTMLHeadingElement;
+    H2: new () => CustomHTMLHeadingElement;
+    H3: new () => CustomHTMLHeadingElement;
+    H4: new () => CustomHTMLHeadingElement;
+    H5: new () => CustomHTMLHeadingElement;
+    H6: new () => CustomHTMLHeadingElement;
+    Head: new () => CustomHTMLHeadElement;
+    Header: new () => CustomHTMLElement;
+    HR: new () => CustomHTMLHRElement;
+    Html: new () => CustomHTMLHtmlElement;
+    I: new () => CustomHTMLElement;
+    IFrame: new () => CustomHTMLIFrameElement;
+    Image: new () => CustomHTMLUnknownElement;
+    Img: new () => CustomHTMLImageElement;
+    Input: new () => CustomHTMLInputElement;
+    Ins: new () => CustomHTMLModElement;
+    Kbd: new () => CustomHTMLElement;
+    Keygen: new () => CustomHTMLUnknownElement;
+    Label: new () => CustomHTMLLabelElement;
+    Legend: new () => CustomHTMLLegendElement;
+    LI: new () => CustomHTMLLIElement;
+    Link: new () => CustomHTMLLinkElement;
+    Main: new () => CustomHTMLElement;
+    Map: new () => CustomHTMLMapElement;
+    Mark: new () => CustomHTMLElement;
+    Marquee: new () => CustomHTMLMarqueeElement;
+    Menu: new () => CustomHTMLMenuElement;
+    MenuItem: new () => CustomHTMLUnknownElement;
+    Meta: new () => CustomHTMLMetaElement;
+    Meter: new () => CustomHTMLMeterElement;
+    Nav: new () => CustomHTMLElement;
+    NoBR: new () => CustomHTMLElement;
+    NoEmbed: new () => CustomHTMLElement;
+    NoFrames: new () => CustomHTMLElement;
+    NoScript: new () => CustomHTMLElement;
+    Object: new () => CustomHTMLObjectElement;
+    OL: new () => CustomHTMLOListElement;
+    OptGroup: new () => CustomHTMLOptGroupElement;
+    Option: new () => CustomHTMLOptionElement;
+    Output: new () => CustomHTMLOutputElement;
+    P: new () => CustomHTMLParagraphElement;
+    Param: new () => CustomHTMLParamElement;
+    Picture: new () => CustomHTMLPictureElement;
+    PlainText: new () => CustomHTMLElement;
+    Portal: new () => CustomHTMLUnknownElement;
+    Pre: new () => CustomHTMLPreElement;
+    Progress: new () => CustomHTMLProgressElement;
+    Q: new () => CustomHTMLQuoteElement;
+    RB: new () => CustomHTMLElement;
+    RP: new () => CustomHTMLElement;
+    RT: new () => CustomHTMLElement;
+    RTC: new () => CustomHTMLElement;
+    Ruby: new () => CustomHTMLElement;
+    S: new () => CustomHTMLElement;
+    Samp: new () => CustomHTMLElement;
+    Script: new () => CustomHTMLScriptElement;
+    Section: new () => CustomHTMLElement;
+    Select: new () => CustomHTMLSelectElement;
+    Shadow: new () => CustomHTMLUnknownElement;
+    Slot: new () => CustomHTMLSlotElement;
+    Small: new () => CustomHTMLElement;
+    Source: new () => CustomHTMLSourceElement;
+    Spacer: new () => CustomHTMLUnknownElement;
+    Span: new () => CustomHTMLSpanElement;
+    Strike: new () => CustomHTMLElement;
+    Strong: new () => CustomHTMLElement;
+    Style: new () => CustomHTMLStyleElement;
+    Sub: new () => CustomHTMLElement;
+    Summary: new () => CustomHTMLElement;
+    Sup: new () => CustomHTMLElement;
+    Table: new () => CustomHTMLTableElement;
+    TBody: new () => CustomHTMLTableSectionElement;
+    TD: new () => CustomHTMLTableCellElement;
+    Template: new () => CustomHTMLTemplateElement;
+    TextArea: new () => CustomHTMLTextAreaElement;
+    TFoot: new () => CustomHTMLTableSectionElement;
+    TH: new () => CustomHTMLTableCellElement;
+    THead: new () => CustomHTMLTableSectionElement;
+    Time: new () => CustomHTMLTimeElement;
+    Title: new () => CustomHTMLTitleElement;
+    TR: new () => CustomHTMLTableRowElement;
+    Track: new () => CustomHTMLTrackElement;
+    TT: new () => CustomHTMLElement;
+    U: new () => CustomHTMLElement;
+    UL: new () => CustomHTMLUListElement;
+    Var: new () => CustomHTMLElement;
+    Video: new () => CustomHTMLVideoElement;
+    Wbr: new () => CustomHTMLElement;
+    XMP: new () => CustomHTMLPreElement;
+};
+
+class CustomHTMLAnchorElement extends HTMLAnchorElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLElement extends HTMLElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLUnknownElement extends HTMLUnknownElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLAreaElement extends HTMLAreaElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLAudioElement extends HTMLAudioElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLBaseElement extends HTMLBaseElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLQuoteElement extends HTMLQuoteElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLBodyElement extends HTMLBodyElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLBRElement extends HTMLBRElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLButtonElement extends HTMLButtonElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLCanvasElement extends HTMLCanvasElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTableCaptionElement extends HTMLTableCaptionElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTableColElement extends HTMLTableColElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLDataElement extends HTMLDataElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLDataListElement extends HTMLDataListElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLModElement extends HTMLModElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLDetailsElement extends HTMLDetailsElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLDialogElement extends HTMLDialogElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLDirectoryElement extends HTMLDirectoryElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLDivElement extends HTMLDivElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLDListElement extends HTMLDListElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLEmbedElement extends HTMLEmbedElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLFieldSetElement extends HTMLFieldSetElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLFontElement extends HTMLFontElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLFormElement extends HTMLFormElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLFrameElement extends HTMLFrameElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLFrameSetElement extends HTMLFrameSetElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLHeadingElement extends HTMLHeadingElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLHeadElement extends HTMLHeadElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLHRElement extends HTMLHRElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLHtmlElement extends HTMLHtmlElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLIFrameElement extends HTMLIFrameElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLImageElement extends HTMLImageElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLInputElement extends HTMLInputElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLLabelElement extends HTMLLabelElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLLegendElement extends HTMLLegendElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLLIElement extends HTMLLIElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLLinkElement extends HTMLLinkElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLMapElement extends HTMLMapElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLMarqueeElement extends HTMLMarqueeElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLMenuElement extends HTMLMenuElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLMetaElement extends HTMLMetaElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLMeterElement extends HTMLMeterElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLObjectElement extends HTMLObjectElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLOListElement extends HTMLOListElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLOptGroupElement extends HTMLOptGroupElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLOptionElement extends HTMLOptionElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLOutputElement extends HTMLOutputElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLParagraphElement extends HTMLParagraphElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLParamElement extends HTMLParamElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLPictureElement extends HTMLPictureElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLPreElement extends HTMLPreElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLProgressElement extends HTMLProgressElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLScriptElement extends HTMLScriptElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLSelectElement extends HTMLSelectElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLSlotElement extends HTMLSlotElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLSourceElement extends HTMLSourceElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLSpanElement extends HTMLSpanElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLStyleElement extends HTMLStyleElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTableElement extends HTMLTableElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTableSectionElement extends HTMLTableSectionElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTableCellElement extends HTMLTableCellElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTemplateElement extends HTMLTemplateElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTextAreaElement extends HTMLTextAreaElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTimeElement extends HTMLTimeElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTitleElement extends HTMLTitleElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTableRowElement extends HTMLTableRowElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLTrackElement extends HTMLTrackElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLUListElement extends HTMLUListElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomHTMLVideoElement extends HTMLVideoElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
 };

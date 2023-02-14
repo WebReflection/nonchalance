@@ -8,6 +8,8 @@ const handler = {
 };
 
 /**
+ * Return a light `Proxy` of the given class which allows the class
+ * to be called through the JSX `ref={Class}` witohut needing `new.target`.
  * @template T
  * @param {T} Class the Class to proxy for ref={Class} upgrades.
  * @returns {T}

@@ -23,7 +23,7 @@
     "size:es": "echo -e \"\\x1b[1mes.js\\x1b[0m brotli $(cat es.js | brotli | wc -c)\";echo -e \"\\x1b[1mes.js\\x1b[0m gzip $(cat es.js | gzip | wc -c)\"",
     "size:runtime": "echo -e \"\\x1b[1mruntime.js\\x1b[0m brotli $(cat runtime.js | brotli | wc -c)\";echo -e \"\\x1b[1mruntime.js\\x1b[0m gzip $(cat runtime.js | gzip | wc -c)\"",
     "size:ce": "echo -e \"\\x1b[1mce.js\\x1b[0m brotli $(cat ce.js | brotli | wc -c)\";echo -e \"\\x1b[1mce.js\\x1b[0m gzip $(cat ce.js | gzip | wc -c)\"",
-    "types": "tsc -p ."
+    "types": "tsc -p . && node rollup/fix-ts.cjs && node rollup/ce.cjs"
   },
   "keywords": [
     "DOM",
