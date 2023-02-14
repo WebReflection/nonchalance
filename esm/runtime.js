@@ -149,8 +149,7 @@ import custom from 'custom-function/factory';
  * @property {globalThis} [self=globalThis]
  * @returns {HTML}
  */
-export default function (self = globalThis) {
-  const {document} = self;
+export default function ({document} = globalThis) {
   const HTML = new Map;
   const set = (map, tag) => {
     let Class = HTML.get(tag);

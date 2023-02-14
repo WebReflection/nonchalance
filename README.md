@@ -8,7 +8,7 @@ The easiest way to augment DOM builtin elements:
 
   * **No polyfills needed**, all modern browsers just work™️
   * elements can be either created from scratch or upgraded on demand for **graceful hydration**
-  * fits into 226 bytes (runtime) or 576 bytes (default) once served minified via default brotli settings (283 runtime or 666 via default gzip settings)
+  * fits into 228 bytes (runtime) or 576 bytes (default) once served minified via default brotli settings (280 runtime or 666 via default gzip settings)
 
 ### Example - A more secure password field:
 
@@ -164,7 +164,7 @@ class AsCustomElement extends HTML.Div {
 
 See this demo [live on codepen](https://codepen.io/WebReflection/pen/OJoLwxr?editors=0011) to play around it.
 
-**Alternatively though**, this module exports a `/ce` too (716 bytes brotli, 802 bytes gzipped) which goal is to automatically register as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
+**Alternatively though**, this module exports a `/ce` too (711 bytes brotli, 801 bytes gzipped) which goal is to automatically register as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
 
 See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?editors=0011) to have an idea how that works, and how much boilerplate it saves, compared to the previous example.
 
@@ -192,7 +192,7 @@ The strength of `proxied-html-constructors` module is that *it actually throws a
 
 However, this pre-compiled *Map* doesn't come for free in terms of bytes, but it's surely the fastest and less heap greedy way to use this module.
 
-On the other hand, if you are a "*bytes saver maniac*", the `nonchalance/runtime` alternative (brotli 226, gzip 283) doesn't use a pre-compiled *Map* and it simply retrieves once the constructor related to the desired *tag*.
+On the other hand, if you are a "*bytes saver maniac*", the `nonchalance/runtime` alternative (brotli 228, gzip 280) doesn't use a pre-compiled *Map* and it simply retrieves once the constructor related to the desired *tag*.
 
 That means that `HTML.Shenanigan` won't ever throw an error, but it will silently create an extend of `HTMLUnknownElement`, also allocating extra heap to access such constructor via `document.createElement(anyTag).constructor`.
 
@@ -234,8 +234,8 @@ In short, if you read again the most basic `Passord` class example, it's clear t
 
 This module goal is to provide a choice that doesn't suffer any of the problems developers love to talk about builtin extends:
 
-  * "*do I need a polyfill forever?*" no, you need 576 bytes (or just 226) plus your code to forget about this issue
-  * "*will builtin extends be removed from specs?*" who cares, with just 576 bytes (or 226) libary helper you're good to go
+  * "*do I need a polyfill forever?*" no, you need 576 bytes (or just 228) plus your code to forget about this issue
+  * "*will builtin extends be removed from specs?*" who cares, with just 576 bytes (or 228) libary helper you're good to go
 
 Strawberry on top, this module would work even within oepened or closed ShadowDOM content, as long as the logic provides upgrades or uses classes programmatically.
 

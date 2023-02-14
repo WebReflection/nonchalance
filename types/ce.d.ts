@@ -4,7 +4,7 @@
  * @property {globalThis} [self=globalThis]
  * @returns {HTML}
  */
-declare function _default(self?: typeof globalThis): HTML;
+declare function _default({ document }?: typeof globalThis): HTML;
 export default _default;
 export type HTML = {
     A: new () => CustomHTMLAnchorElement;

@@ -150,8 +150,7 @@ const custom = (m => /* c8 ignore start */ m.__esModule ? m.default : m /* c8 ig
  * @property {globalThis} [self=globalThis]
  * @returns {HTML}
  */
-module.exports = function (self = globalThis) {
-  const {document} = self;
+module.exports = function ({document} = globalThis) {
   const HTML = new Map;
   const set = (map, tag) => {
     let Class = HTML.get(tag);
