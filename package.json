@@ -48,6 +48,11 @@
       "import": "./esm/index.js",
       "default": "./cjs/index.js"
     },
+    "./accessors": {
+      "types": "./types/accessors.d.ts",
+      "import": "./esm/accessors.js",
+      "default": "./cjs/accessors.js"
+    },
     "./all": {
       "types": "./types/all.d.ts",
       "import": "./esm/all.js",

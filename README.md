@@ -219,6 +219,50 @@ Yes, you can alias named imports with ease in *JS*, but why even bothering when 
   </div>
 </details>
 <details>
+  <summary><strong>What's the /accessor export?</strong></summary>
+  <div>
+
+When elements are upgraded at distance it's possible that these had some property attached that didn't get a chance to pass through their accessors.
+
+This helper simply ensures that inherited properties are removed as own element keys to then be triggered as accessors right after.
+
+```js
+import createRegistry from 'nonchalance/ce';
+import accessors from 'nonchalance/accessors';
+
+const HTML = createRegistry();
+
+class WithAccessors extends HTML.Div {
+  constructor(...args) {
+    accessors(super(...args));
+  }
+  get value() {
+    console.log('get value', this._value);
+    return this._value;
+  }
+  set value(_value) {
+    this._value = _value;
+    console.log('set value', this._value);
+  }
+}
+
+// native div element
+const div = document.createElement('div');
+div.value = 123;
+
+// upgraded
+new WithAccessors(div);
+
+// re-check
+console.log(div.value);
+```
+
+See it [live to test more](https://codepen.io/WebReflection/pen/eYLNrLB?editors=0011).
+
+  </div>
+</details>
+
+<details>
   <summary><strong>Aren't builtin extends hostile or not supported in Safari?</strong></summary>
   <div>
 
