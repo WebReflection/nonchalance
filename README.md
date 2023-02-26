@@ -263,6 +263,39 @@ See it [live to test more](https://codepen.io/WebReflection/pen/eYLNrLB?editors=
 </details>
 
 <details>
+  <summary><strong>Can I extend also SVG and MathML elements?</strong></summary>
+  <div>
+
+**Yes**. There is another `/fe` (full elements / front end) runtime export (320 brotli) that changes the return type of the utility so that it's possible to create different registries:
+
+```js
+import createRegistry from 'nonchalance/fe';
+const {HTML, SVG} = createRegistry();
+
+class Circle extends SVG.Circle {
+  constructor(options) {
+    Object
+      .assign(super(), options)
+      .setAttribute('fill', 'gold');
+  }
+  set cx(value) { this.setAttribute('cx', value) }
+  set cy(value) { this.setAttribute('cy', value) }
+  set r(value) { this.setAttribute('r', value) }
+}
+
+document.querySelector('svg').append(
+  new Circle({cx: 100, cy: 100, r: 50})
+);
+```
+
+Some work is needed to provide proper TypeScript definition but this variant is granted to work on any browser already and it's tested too.
+
+This also might pave the path for a breaking change as it really makes little sense to confine extends to *HTML* elements only, since the logic behind works with anything else, really.
+
+  </div>
+</details>
+
+<details>
   <summary><strong>Aren't builtin extends hostile or not supported in Safari?</strong></summary>
   <div>
 

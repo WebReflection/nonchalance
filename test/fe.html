@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>nonchalance</title>
+  <script type="module">
+  import createRegistry from '../fe.js';
+
+  // the default export accepts optionally a `globalThis` like
+  // context for all those environments that don't have a native DOM.
+  // Such registry can expose qualified classes names plus a `document` reference
+  // that will be used to create elements.
+  const {HTML, SVG} = createRegistry();
+
+  // extend any element to create, or upgrade, custom elements
+  // from a registry that shares nothing with the global context
+  class Password extends HTML.Input {
+    constructor(...args) {
+      super(...args);
+      this.type = 'password';
+    }
+    // avoid malicious scripts easily retrieving any password
+    get value() {
+      return '********';
+    }
+    // demo case: still use the native `value` when password is set
+    set value(secret) {
+      super.value = secret;
+    }
+  }
+
+  document.body.innerHTML = `
+    <form>
+      <input type="text" name="user" placeholder="user">
+      <input type="password" name="password" placeholder="password">
+      <input type="submit">
+    </form>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250" width="250" height="250"></svg>
+  `;
+
+  // upgrade the desired element via new ClassType
+  new Password(document.querySelector('[type="password"]'));
+
+  // or create a new instance
+  const secret = Object.assign(new Password, {
+    name: 'pass',
+    value: Math.random(),
+    placeholder: 'runtime password'
+  });
+
+  const form = document.querySelector('form');
+  form.insertBefore(secret, form.lastElementChild);
+
+  class Circle extends SVG.Circle {
+    constructor(options, ...rest) {
+      Object
+        .assign(super(...rest), options)
+        .setAttribute('fill', 'gold');
+    }
+    set cx(value) { this.setAttribute('cx', value) }
+    set cy(value) { this.setAttribute('cy', value) }
+    set r(value) { this.setAttribute('r', value) }
+  }
+
+  document.querySelector('svg').append(
+    new Circle({cx: 100, cy: 100, r: 50})
+  );
+  </script>
+</head>
+<body></body>
+</html>
