@@ -29,12 +29,12 @@ export default ({document} = globalThis) => new Proxy(new Map, {
         map.set(tag, CustomElement);
         return CustomElement;
       };
-      return new Proxy(new Map, {
+      map.set(Namespace, new Proxy(new Map, {
         get(map, tag) {
           const _ = tag.toLowerCase();
           return map.get(_) || set(map, _, tag);
         }
-      });
+      }));
     }
     return map.get(Namespace);
   }
