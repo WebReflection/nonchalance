@@ -99,9 +99,9 @@ CustomP -> HTMLParagraphElement -> HTMLElement -> Element -> Node
 AnotherP -> CustomP -> HTMLParagraphElement -> HTMLElement -> Element -> Node
 ```
 
-In few words, creating an element through `new AnotherP` or upgrading an element via `new AnotherP(liveParagraph)` simply updates the prototype chain, without requiring the element to ever leave the DOM or change its native nature, as that's preserved down the prototypal inheritance chain.
+In a few words, creating an element through `new AnotherP` or upgrading an element via `new AnotherP(liveParagraph)` simply updates the prototype chain, without requiring the element to ever leave the DOM or change its native nature, as that's preserved down the prototypal inheritance chain.
 
-As summary: *nonchalance* registries simply upgrade elements without changing their nature, exactly the same way native builtin extends work under the hood.
+Summary: *nonchalance* registries simply upgrade elements without changing their nature, exactly the same way native builtin extends work under the hood.
 
   </div>
 </details>
@@ -130,7 +130,7 @@ ReactDOM.render(
 );
 ```
 
-The `ref` utility could be also used as decorator and it doesn't affect any feature of regular *nonchalance* classes plus each element is upgraded only once so that it's safe to add listeners or logic in the constructor.
+The `ref` utility could also be used as a decorator and without affecting any feature of regular *nonchalance* classes. Plus, each element is upgraded only once so that it's safe to add listeners or logic in the constructor.
 
 See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?editors=0011) to play around it.
 
@@ -164,9 +164,9 @@ class AsCustomElement extends HTML.Div {
 
 See this demo [live on codepen](https://codepen.io/WebReflection/pen/OJoLwxr?editors=0011) to play around it.
 
-**Alternatively though**, this module exports a `/ce` too (711 bytes brotli, 801 bytes gzipped) which goal is to automatically register as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
+**Alternatively though**, this module exports a `/ce` too (711 bytes brotli, 801 bytes gzipped) with the goal of automatically registering as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
 
-See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?editors=0011) to have an idea how that works, and how much boilerplate it saves, compared to the previous example.
+See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?editors=0011) to have an idea of how that works and how much boilerplate it saves, compared to the previous example.
 
   </div>
 </details>
@@ -174,9 +174,9 @@ See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQ
   <summary><strong>Can any element become any other?</strong></summary>
   <div>
 
-**No**. Metaphorically speaking, *HTML* elements have both a semantic meaning and a well defined, and desired, utility once live, same way a *JS* function will be, forever, a *JS* function, even if `Object.setPrototypeOf(() => {}, Number.prototype)` happens ... can you see, or agree, how wrong is that?
+**No**. Metaphorically speaking, *HTML* elements have both a semantic meaning and a well defined, and desired, utility once live, the same way a *JS* function will be, forever, a *JS* function, even if `Object.setPrototypeOf(() => {}, Number.prototype)` happens ... can you see, or agree, how wrong is that?
 
-This module doesn't want to, and likely cannot neither, guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
+This module doesn't want to (and likely also cannot) guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
 
 In short, same way `customElements.define('my-link', class extends HTMLDivElement {}, {extends: 'a'})` makes no sense, this module trust its users non-sense classes will be avoided.
 
@@ -210,11 +210,11 @@ Unrelated to this module but worth clarifying here why, this *dual module* simpl
 
 The reason I didn't go for a named export in pretty much any of this module, or this module dependencies, is that everyone is *free* to decide how to name the ability to create a scoped registry, among the way to name imports from its submodule within this code.
 
-As example, `custom-function` module is imported as `custom` callback, as it's very semantic for this module purpose, while `proxied-html-constructors` is imported as `create`, which is still very semantic for this module goal but it could be confusing to some other project when `Object.create` or `createSignal`, as example, is meant instead.
+As an example, `custom-function` module is imported as `custom` callback, as it's very semantic for this module purpose, while `proxied-html-constructors` is imported as `create`, which is still very semantic for this module goal but it could be confusing to some other project when `Object.create` or `createSignal`, as example, is meant instead.
 
-That is: this module exports a single callback used to create a *registry* that can be used to extend any *HTML* element, so that having the freedom to name such registry felt like a good use case, and an improved DX, to offer.
+Said another way: this module exports a single callback used to create a *registry* that can be used to extend any *HTML* element, so that having the freedom to name such registry felt like a good use case, and an improved DX, to offer.
 
-Yes, you can alias named imports with ease in *JS*, but why even bothering when the export is meant to be just one and implicitly cover all your possible naming conventions around your code? 😉
+Yes, you can alias named imports with ease in *JS*, but why even bother when the export is meant to be just one and implicitly cover all your possible naming conventions around your code? 😉
 
   </div>
 </details>
@@ -299,22 +299,22 @@ This also might pave the path for a breaking change as it really makes little se
   <summary><strong>Aren't builtin extends hostile or not supported in Safari?</strong></summary>
   <div>
 
-I've talked ad nauseam [about this topic](https://webreflection.medium.com/in-favor-of-custom-elements-built-ins-bae3f40f27d5) but here the thing:
+I've talked ad nauseam [about this topic](https://webreflection.medium.com/in-favor-of-custom-elements-built-ins-bae3f40f27d5), but as a summary:
 
   * the success of *jQuery*, which is still the most deployed and used library out there, is based on native elements manipulation and augmentation
-  * every browser but Safari/WebKit supports builtin extends and use it in the wild, signaling WebKit concerns are somehow not so relevant
+  * every browser but Safari/WebKit supports builtin extends and uses it in the wild, signaling WebKit concerns are somehow not so relevant
   * the API specification [still mention builtin extends](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example), implying it's not really a blocker for the Web
   * with ES2015 and classes, the only troublesome constructors have always been DOM classes and their *Illegal Constructor* error ... well, it's time to say goodbye to those legacy constraints
-  * with modern ES2019 features, such as private fields, the Liskov substitution argument less of a concern, as extra logic can be confined within private fields and methods, lowering the risk of collision for future elements updates
+  * with modern ES2019 features, such as private fields, the Liskov substitution argument is less of a concern, as extra logic can be confined within private fields and methods, lowering the risk of collision for future elements updates
 
-In short, if you read again the most basic `Passord` class example, it's clear that builtin extends can go way beyond, and with ease, any complex and verbose and slower *ShadowDOM* based solution, so that keep being stubborn about avoiding graceful enhancement on what's the Web we surf daily is just counter-productive, and years have to pass before everyone can actually benefit from latest overly-complicated *Shadow DOM* realm, which includes [accessibility issues](https://github.com/WebKit/standards-positions/issues/97#issuecomment-1424415317), constraints, limited use cases compared to builtin extends, and so on ... so here there's something that's meant to work as *ECMAScript* specification compliant, without bothering legacy DOM world and all these distracting and time consuming debates around builtin extends while the Web moves forward.
+In short, if you read again the most basic `Password` class example, it's clear that builtin extends can go way beyond, and with ease, any complex and verbose and slower *ShadowDOM* based solution, so that keeping on being stubborn about avoiding graceful enhancement on what's the Web we surf daily is just counter-productive, and years have to pass before everyone can actually benefit from latest overly-complicated *Shadow DOM* realm, which includes [accessibility issues](https://github.com/WebKit/standards-positions/issues/97#issuecomment-1424415317), constraints, limited use cases compared to builtin extends, and so on ... so here there's something that's meant to work as *ECMAScript* specification compliant, without bothering legacy DOM world and all these distracting and time-consuming debates around builtin extends while the Web moves forward.
 
-This module goal is to provide a choice that doesn't suffer any of the problems developers love to talk about builtin extends:
+This module's goal is to provide a choice that doesn't suffer any of the problems developers love to talk about builtin extends:
 
   * "*do I need a polyfill forever?*" no, you need 576 bytes (or just 228) plus your code to forget about this issue
-  * "*will builtin extends be removed from specs?*" who cares, with just 576 bytes (or 228) libary helper you're good to go
+  * "*will builtin extends be removed from specs?*" who cares, with a library helper of only 576 bytes (or 228), you're good to go
 
-Strawberry on top, this module would work even within oepened or closed ShadowDOM content, as long as the logic provides upgrades or uses classes programmatically.
+And the strawberry on top, this module would work even within opened or closed ShadowDOM content, as long as the logic provides upgrades or uses classes programmatically.
 
   </div>
 </details>
