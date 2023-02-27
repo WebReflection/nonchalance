@@ -4,19 +4,12 @@
 
 <sup>**Social Media Photo by [Andre Taissin](https://unsplash.com/@andretaissin) on [Unsplash](https://unsplash.com/)**</sup>
 
-The easiest way to augment DOM builtin elements:
+The easiest way to augment any DOM builtin element:
 
   * **No polyfills needed**, all modern browsers just work™️
+  * it's possible to extend *HTML*, *SVG*, or any other custom namespace, such as *MathML*, without issues
   * elements can be either created from scratch or upgraded on demand for **graceful hydration**
-  * fits into 228 bytes (runtime) or 576 bytes (default) once served minified via default brotli settings (280 runtime or 666 via default gzip settings)
-
-### 📣 Soon to support HTML, SVG, and arbitraty namespaces
-
-The current `nonchalance/core` is going to be the default export for this library and the `createRegistry()` returns a proxy that populates registries once and on demand. `const {HTML, SVG} = createRegistry()` are default available namespaces to extend both HTML and SVG classes but it's possible to pass other namespaces too as option, among the optional `document` reference.
-
-This makes this module universally usable for every *DOM* namespace and you cna start pointing at the *core* variant as long as you change the `HTML` returned namespaces as `{HTML}`.
-
-Current core is *298 bytes* brotli or *379 bytes* gzipped.
+  * fits into *298 bytes* runtime or *779 bytes* with Custom Elements lifecycle callbacks included (nothing new to learn)
 
 ### Example - A more secure password field:
 
@@ -77,14 +70,14 @@ form.insertBefore(secret, form.lastElementChild);
   <summary><strong>How does it work?</strong></summary>
   <div>
 
-Combining the [custom-function](https://github.com/WebReflection/custom-function#readme) module and optionally the [proxied-html-constructors](https://github.com/WebReflection/proxied-html-constructors#readme) one, it is possible to *upgrade* any sort of element without ever facing the *Illegal Constructor* error that shows up any time a natural `class extends HTMLSomethingElement {}` intent causes, when such class is not defined as globally shared `customElements` registry.
+Using the [custom-function](https://github.com/WebReflection/custom-function#readme) module, it is possible to *upgrade* any sort of element without ever facing the *Illegal Constructor* error that shows up any time a natural `class extends HTMLSomethingElement {}` intent causes, when such class is not defined globally as an entry in the `customElements` registry.
 
-Not only there's nothing globally shared through this module on the global context, every awkward extra work to have builtin extends is completely unnecessary:
+Not only there's nothing globally shared through this module on the global context, every awkward extra work to have any builtin extend working is completely unnecessary:
 
   * new or passed elements always preserve their prototype root chain
   * no extra attributes or clashing names can ever happen
 
-On top of that, because any *HTML registry* can be created per each module or project to share among its components, it's also possible to pass to such *registry* creation any fake or mocked `globalThis` like environment, with at least a `document` field that exposes a `createElement(tagName)` method, and one or more classes the project is meant to test, such as `HTMLElement` and/or any other needed for such project to succeed.
+On top of that, because any *HTML registry* can be created per each module or project to share among its components, it's also possible to pass to such *registry* creation any fake or mocked `globalThis` like environment, with at least a `document` field that exposes a `createElementNS(namespace, tagName)` method, and one or more classes the project is meant to test, such as `HTMLElement` and/or any other needed for such project to succeed.
 
 However, since this module primary target is the *DOM*, the `globalThis` reference is used as sensible default but that still does not mean anything is shared around registries created through the default export.
 
@@ -110,6 +103,24 @@ AnotherP -> CustomP -> HTMLParagraphElement -> HTMLElement -> Element -> Node
 In a few words, creating an element through `new AnotherP` or upgrading an element via `new AnotherP(liveParagraph)` simply updates the prototype chain, without requiring the element to ever leave the DOM or change its native nature, as that's preserved down the prototypal inheritance chain.
 
 Summary: *nonchalance* registries simply upgrade elements without changing their nature, exactly the same way native builtin extends work under the hood.
+
+  </div>
+</details>
+<details>
+  <summary><strong>What's in the default module export?</strong></summary>
+  <div>
+
+Currently, the default / main export for this module points at the very same `/core` export.
+
+Becuase this module opens a Pandora's box with its simplicity and vaporware code size, and mostly because it's still behind a `0.` semver version, I am trying to consider what should be included in the index, and here some of my thoughts:
+
+  * wouldn't it be cool to have an [ESX](https://github.com/ungap/esx#readme) based module that understands components defined this way?
+  * wouldn't it be cool to have a *JSX* pragma function that creates components through this module?
+  * wouldn't it be cool to have ... (your place holder here) ... ?
+
+Yes, it would be cool, and if I can make up my mind around how the default export should be named, I'm game to bring that name among other goodness as default entry for this module ... stay tuned or please give me thoughts and hints on how to do that 🙏
+
+Until then though, please use explicit exports to be sure future updates won't mess up with your logic, and I apology if recent changes caused you troubles, but I am pretty sure you can easily related or understand that was for good!
 
   </div>
 </details>
@@ -148,33 +159,11 @@ See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?edi
   <summary><strong>What about Custom Elements callbacks?</strong></summary>
   <div>
 
-There's [a module for that](https://github.com/WebReflection/as-custom-element#readme) so that adding Custom Elements like callbacks would be as easy as that:
+The `/ce` export automatically upgrades elements in a way compatible with classes' `connectedCallback`, `disconnectedCallback`, and `attributeChangedCallback` methods, together with their static `observedAttributes` field.
 
-```js
-import {upgrade} from 'as-custom-element';
+The module uses a fine-tuned version of the already well working [as-custom-element](https://github.com/WebReflection/as-custom-element#readme) module.
 
-class AsCustomElement extends HTML.Div {
-  observedAttributes = ['test'];
-  constructor(...args) {
-    upgrade(super(...args), this);
-  }
-  attributeChangedCallback(name, before, now) {
-    console.log(`${name} was ${before} and now is ${now}`);
-  }
-  connectedCallback() {
-    console.log('I am connected 🥳');
-  }
-  disconnectedCallback() {
-    console.log('bye bye');
-  }
-}
-```
-
-See this demo [live on codepen](https://codepen.io/WebReflection/pen/OJoLwxr?editors=0011) to play around it.
-
-**Alternatively though**, this module exports a `/ce` too (779 bytes brotli, 900 bytes gzipped) with the goal of automatically registering as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
-
-See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?editors=0011) to have an idea of how that works and how much boilerplate it saves, compared to the previous example.
+See this [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?editors=0011) to have an idea of how that works.
 
   </div>
 </details>
@@ -186,43 +175,7 @@ See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQ
 
 This module doesn't want to (and likely also cannot) guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
 
-In short, same way `customElements.define('my-link', class extends HTMLDivElement {}, {extends: 'a'})` makes no sense, this module trust its users non-sense classes will be avoided.
-
-  </div>
-</details>
-<details>
-  <summary><strong>What's the difference between default, all and runtime exports?</strong></summary>
-  <div>
-
-The `nonchalance` default export (brotli 576, gzip 666) uses a pre-compiled/defined *Map* of all known, and *not deprecated* HTML tags directly from [proxied-html-constructors](https://github.com/WebReflection/proxied-html-constructors#readme) module, while the `nonchalance/all` export (brotli 682, gzip 782) exposes also obsolete or deprecated tags, using `proxied-html-constructors/all` as reference.
-
-The strength of `proxied-html-constructors` module is that *it actually throws an error* when a not-known element is being created, so that it's easier to spot errors at build or testing time, because the related *Class* might not exist or be known ahead of time.
-
-However, this pre-compiled *Map* doesn't come for free in terms of bytes, but it's surely the fastest and less heap greedy way to use this module.
-
-On the other hand, if you are a "*bytes saver maniac*", the `nonchalance/runtime` alternative (brotli 228, gzip 280) doesn't use a pre-compiled *Map* and it simply retrieves once the constructor related to the desired *tag*.
-
-That means that `HTML.Shenanigan` won't ever throw an error, but it will silently create an extend of `HTMLUnknownElement`, also allocating extra heap to access such constructor via `document.createElement(anyTag).constructor`.
-
-If *vaporware* or *minimal working code* is your choice though, and you are confident you don't need any guard other variants provide, then `nonchalance/runtime` will kinda always work forever, with slighter extra *GC* pressure than others, and without guarantees a typo written in the extend will possibly show-up at integration testing time ... and if that's your cup of tea, go ahead with this even smaller variant 🦄
-
-Last, but not least, please note that `nonchalance/runtime` types include all known *HTML* elements, [including deprecated and obsolete ones](https://codepen.io/WebReflection/full/rNZBYLx), simply because it cannot guard anything, so that any element would be automatically enabled, even the non standard, or not existent one, beside legacy.
-
-  </div>
-</details>
-<details>
-  <summary><strong>Why using a default export instead of a named one?</strong></summary>
-  <div>
-
-Unrelated to this module but worth clarifying here why, this *dual module* simply does the right thing: it exposes a `default export` in *ESM* and a direct `module.exports = ...` in the *CJS* world, without ugly `__esModule` workarounds or similar tricks.
-
-The reason I didn't go for a named export in pretty much any of this module, or this module dependencies, is that everyone is *free* to decide how to name the ability to create a scoped registry, among the way to name imports from its submodule within this code.
-
-As an example, `custom-function` module is imported as `custom` callback, as it's very semantic for this module purpose, while `proxied-html-constructors` is imported as `create`, which is still very semantic for this module goal but it could be confusing to some other project when `Object.create` or `createSignal`, as example, is meant instead.
-
-Said another way: this module exports a single callback used to create a *registry* that can be used to extend any *HTML* element, so that having the freedom to name such registry felt like a good use case, and an improved DX, to offer.
-
-Yes, you can alias named imports with ease in *JS*, but why even bother when the export is meant to be just one and implicitly cover all your possible naming conventions around your code? 😉
+In short, same way `customElements.define('my-link', class extends HTMLDivElement {}, {extends: 'a'})` makes no sense, this module trust its users non-sense classes will be hopefully avoided.
 
   </div>
 </details>
@@ -269,12 +222,19 @@ See it [live to test more](https://codepen.io/WebReflection/pen/eYLNrLB?editors=
 
   </div>
 </details>
+<details>
+  <summary><strong>What's the /ref export?</strong></summary>
+  <div>
 
+Please check the *Can I use this with React or other fameworks?* entry of this list 😉
+
+  </div>
+</details>
 <details>
   <summary><strong>Can I extend also SVG and MathML or other elements?</strong></summary>
   <div>
 
-**Yes**. There `/core` runtime export (298 brotli) make it possible to create, by default, both *HTML* and *SVG* registries:
+**Yes**. The `/core` runtime export makes it possible to create, by default, both *HTML* and *SVG* registries:
 
 ```js
 import createRegistry from 'nonchalance/core';
