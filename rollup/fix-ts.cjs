@@ -5,6 +5,7 @@ fixDefaultExport('index');
 fixDefaultExport('all');
 fixDefaultExport('runtime');
 fixDefaultExport('ce');
+fixDefaultExport('core');
 
 function fixDefaultExport(name) {
   const target = join(__dirname, '..', 'types', name + '.d.ts');

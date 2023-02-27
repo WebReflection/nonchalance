@@ -66,6 +66,7 @@
       "default": "./cjs/ce.js"
     },
     "./core": {
+      "types": "./types/core.d.ts",
       "import": "./esm/core.js",
       "default": "./cjs/core.js"
     },
