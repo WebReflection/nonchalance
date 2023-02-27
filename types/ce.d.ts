@@ -46,6 +46,7 @@ export type HTML = {
     Div: new () => CustomHTMLDivElement;
     DL: new () => CustomHTMLDListElement;
     DT: new () => CustomHTMLElement;
+    Element: new () => CustomHTMLElement;
     Em: new () => CustomHTMLElement;
     Embed: new () => CustomHTMLEmbedElement;
     FieldSet: new () => CustomHTMLFieldSetElement;

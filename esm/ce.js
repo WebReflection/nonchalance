@@ -100,6 +100,7 @@ Element.prototype.attachShadow = function attachShadow(init) {
  * @property {new () => HTMLDivElement} Div
  * @property {new () => HTMLDListElement} DL
  * @property {new () => HTMLElement} DT
+ * @property {new () => HTMLElement} Element
  * @property {new () => HTMLElement} Em
  * @property {new () => HTMLEmbedElement} Embed
  * @property {new () => HTMLFieldSetElement} FieldSet

@@ -44,6 +44,7 @@ const create = (m => /* c8 ignore start */ m.__esModule ? m.default : m /* c8 ig
  * @property {new () => HTMLDivElement} Div
  * @property {new () => HTMLDListElement} DL
  * @property {new () => HTMLElement} DT
+ * @property {new () => HTMLElement} Element
  * @property {new () => HTMLElement} Em
  * @property {new () => HTMLEmbedElement} Embed
  * @property {new () => HTMLFieldSetElement} FieldSet

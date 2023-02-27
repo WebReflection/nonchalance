@@ -38,6 +38,7 @@ export type HTML = {
     Div: new () => HTMLDivElement;
     DL: new () => HTMLDListElement;
     DT: new () => HTMLElement;
+    Element: new () => HTMLElement;
     Em: new () => HTMLElement;
     Embed: new () => HTMLEmbedElement;
     FieldSet: new () => HTMLFieldSetElement;
