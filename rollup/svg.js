@@ -3,7 +3,7 @@
 const types = [];
 for (const Class of Reflect.ownKeys(globalThis)) {
   if (/^SVG(.*?)Element$/.test(Class))
-      types.push(` * @property {new () => ${Class}} ${RegExp.$1}`);
+      types.push(` * @property {new () => ${Class}} ${RegExp.$1 || 'Element'}`);
 }
 
 console.log(`
