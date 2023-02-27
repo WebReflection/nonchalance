@@ -1,18 +1,16 @@
-import('../esm/all.js').then(test);
-import('../esm/index.js').then(test);
-import('../esm/runtime.js').then(test);
+import('../esm/core.js').then(test);
 
 function test({default: nonchalance}) {
   const self = {
     document: {
-      createElement: localName => ({localName})
+      createElementNS: (_, localName) => ({localName})
     },
     HTMLAnchorElement: class HTMLAnchorElement {},
     HTMLDivElement: class HTMLDivElement {},
     HTMLElement: class HTMLElement {}
   };
 
-  const HTML = nonchalance(self);
+  const {HTML} = nonchalance(self);
 
   class A extends HTML.A {
     #a;
@@ -33,4 +31,9 @@ function test({default: nonchalance}) {
   console.assert((new A).a === 'A');
   console.assert((new Anchor).a === 'Anchor');
   console.assert(new A({}).localName === 'a');
+
+  const {document} = globalThis;
+  globalThis.document = self.document;
+  nonchalance().HTML;
+  globalThis.document = document;
 }
