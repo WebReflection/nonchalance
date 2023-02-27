@@ -167,7 +167,7 @@ module.exports = function ({document} = globalThis) {
   return new Proxy(new Map, {
     get(map, tag) {
       const _ = tag.toLowerCase();
-      return map.get(_) || set(map, _, tag);
+      return map.get(_) || set(map, _);
     }
   });
 };
