@@ -6,10 +6,10 @@
   <title>nonchalance</title>
   <script type="module">
   import createRegistry from '../ce.js';
-  const HTML = createRegistry();
+  const {HTML} = createRegistry();
 
   class AsCustomElement extends HTML.Div {
-    get observedAttributes() { return ['test'] };
+    static observedAttributes = ['test'];
     attributeChangedCallback(name, before, now) {
       console.log(`${name} was ${before} and now is ${now}`);
     }
@@ -22,6 +22,10 @@
   }
 
   document.body.appendChild(new AsCustomElement).textContent = 'OK';
+  document.body.firstElementChild.setAttribute('test', 123);
+  setTimeout(() => {
+    document.body.textContent = 'chek console';
+  }, 1000);
   </script>
 </head>
 <body></body>

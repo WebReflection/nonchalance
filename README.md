@@ -172,7 +172,7 @@ class AsCustomElement extends HTML.Div {
 
 See this demo [live on codepen](https://codepen.io/WebReflection/pen/OJoLwxr?editors=0011) to play around it.
 
-**Alternatively though**, this module exports a `/ce` too (711 bytes brotli, 801 bytes gzipped) with the goal of automatically registering as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
+**Alternatively though**, this module exports a `/ce` too (779 bytes brotli, 900 bytes gzipped) with the goal of automatically registering as Custom Elements any extend that exposes one of the standard APIs such as `connectedCallback`, `disconnectedCallback`, or `attributeChangedCallback`.
 
 See this other [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?editors=0011) to have an idea of how that works and how much boilerplate it saves, compared to the previous example.
 
@@ -238,7 +238,7 @@ This helper simply ensures that inherited properties are removed as own element 
 import createRegistry from 'nonchalance/ce';
 import accessors from 'nonchalance/accessors';
 
-const HTML = createRegistry();
+const {HTML} = createRegistry();
 
 class WithAccessors extends HTML.Div {
   constructor(...args) {

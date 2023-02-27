@@ -1,17 +1,27 @@
-/**
- * Given an optional global context, returns a proxy that resolves
- * all tag names into their global constructors.
- * @property {globalThis} [self=globalThis]
- * @returns {HTML}
- */
-declare function _default({ document }?: typeof globalThis): HTML;
+declare function _default(options?: Options): Namespace;
 export default _default;
+export type Options = {
+    /**
+     * the document to use, defaults to the global one.
+     */
+    document?: Document;
+    /**
+     * the namespace to use for HTML classes.
+     */
+    HTML?: 'http://www.w3.org/1999/xhtml';
+    /**
+     * the namespace to use for SVG classes.
+     */
+    SVG?: 'http://www.w3.org/2000/svg';
+    /**
+     * any desired extra namespace.
+     */
+    CustomML?: '...';
+};
 export type HTML = {
     A: new () => CustomHTMLAnchorElement;
     Abbr: new () => CustomHTMLElement;
-    Acronym: new () => CustomHTMLElement;
     Address: new () => CustomHTMLElement;
-    Applet: new () => CustomHTMLUnknownElement;
     Area: new () => CustomHTMLAreaElement;
     Article: new () => CustomHTMLElement;
     Aside: new () => CustomHTMLElement;
@@ -20,21 +30,16 @@ export type HTML = {
     Base: new () => CustomHTMLBaseElement;
     Bdi: new () => CustomHTMLElement;
     Bdo: new () => CustomHTMLElement;
-    BGSound: new () => CustomHTMLUnknownElement;
-    Big: new () => CustomHTMLElement;
-    Blink: new () => CustomHTMLUnknownElement;
     BlockQuote: new () => CustomHTMLQuoteElement;
     Body: new () => CustomHTMLBodyElement;
     BR: new () => CustomHTMLBRElement;
     Button: new () => CustomHTMLButtonElement;
     Canvas: new () => CustomHTMLCanvasElement;
     Caption: new () => CustomHTMLTableCaptionElement;
-    Center: new () => CustomHTMLElement;
     Cite: new () => CustomHTMLElement;
     Code: new () => CustomHTMLElement;
     Col: new () => CustomHTMLTableColElement;
     ColGroup: new () => CustomHTMLTableColElement;
-    Content: new () => CustomHTMLUnknownElement;
     Data: new () => CustomHTMLDataElement;
     DataList: new () => CustomHTMLDataListElement;
     DD: new () => CustomHTMLElement;
@@ -42,7 +47,6 @@ export type HTML = {
     Details: new () => CustomHTMLDetailsElement;
     Dfn: new () => CustomHTMLElement;
     Dialog: new () => CustomHTMLDialogElement;
-    Dir: new () => CustomHTMLDirectoryElement;
     Div: new () => CustomHTMLDivElement;
     DL: new () => CustomHTMLDListElement;
     DT: new () => CustomHTMLElement;
@@ -52,11 +56,8 @@ export type HTML = {
     FieldSet: new () => CustomHTMLFieldSetElement;
     FigCaption: new () => CustomHTMLElement;
     Figure: new () => CustomHTMLElement;
-    Font: new () => CustomHTMLFontElement;
     Footer: new () => CustomHTMLElement;
     Form: new () => CustomHTMLFormElement;
-    Frame: new () => CustomHTMLFrameElement;
-    FrameSet: new () => CustomHTMLFrameSetElement;
     H1: new () => CustomHTMLHeadingElement;
     H2: new () => CustomHTMLHeadingElement;
     H3: new () => CustomHTMLHeadingElement;
@@ -69,12 +70,10 @@ export type HTML = {
     Html: new () => CustomHTMLHtmlElement;
     I: new () => CustomHTMLElement;
     IFrame: new () => CustomHTMLIFrameElement;
-    Image: new () => CustomHTMLUnknownElement;
     Img: new () => CustomHTMLImageElement;
     Input: new () => CustomHTMLInputElement;
     Ins: new () => CustomHTMLModElement;
     Kbd: new () => CustomHTMLElement;
-    Keygen: new () => CustomHTMLUnknownElement;
     Label: new () => CustomHTMLLabelElement;
     Legend: new () => CustomHTMLLegendElement;
     LI: new () => CustomHTMLLIElement;
@@ -82,15 +81,10 @@ export type HTML = {
     Main: new () => CustomHTMLElement;
     Map: new () => CustomHTMLMapElement;
     Mark: new () => CustomHTMLElement;
-    Marquee: new () => CustomHTMLMarqueeElement;
     Menu: new () => CustomHTMLMenuElement;
-    MenuItem: new () => CustomHTMLUnknownElement;
     Meta: new () => CustomHTMLMetaElement;
     Meter: new () => CustomHTMLMeterElement;
     Nav: new () => CustomHTMLElement;
-    NoBR: new () => CustomHTMLElement;
-    NoEmbed: new () => CustomHTMLElement;
-    NoFrames: new () => CustomHTMLElement;
     NoScript: new () => CustomHTMLElement;
     Object: new () => CustomHTMLObjectElement;
     OL: new () => CustomHTMLOListElement;
@@ -98,30 +92,23 @@ export type HTML = {
     Option: new () => CustomHTMLOptionElement;
     Output: new () => CustomHTMLOutputElement;
     P: new () => CustomHTMLParagraphElement;
-    Param: new () => CustomHTMLParamElement;
     Picture: new () => CustomHTMLPictureElement;
-    PlainText: new () => CustomHTMLElement;
     Portal: new () => CustomHTMLUnknownElement;
     Pre: new () => CustomHTMLPreElement;
     Progress: new () => CustomHTMLProgressElement;
     Q: new () => CustomHTMLQuoteElement;
-    RB: new () => CustomHTMLElement;
     RP: new () => CustomHTMLElement;
     RT: new () => CustomHTMLElement;
-    RTC: new () => CustomHTMLElement;
     Ruby: new () => CustomHTMLElement;
     S: new () => CustomHTMLElement;
     Samp: new () => CustomHTMLElement;
     Script: new () => CustomHTMLScriptElement;
     Section: new () => CustomHTMLElement;
     Select: new () => CustomHTMLSelectElement;
-    Shadow: new () => CustomHTMLUnknownElement;
     Slot: new () => CustomHTMLSlotElement;
     Small: new () => CustomHTMLElement;
     Source: new () => CustomHTMLSourceElement;
-    Spacer: new () => CustomHTMLUnknownElement;
     Span: new () => CustomHTMLSpanElement;
-    Strike: new () => CustomHTMLElement;
     Strong: new () => CustomHTMLElement;
     Style: new () => CustomHTMLStyleElement;
     Sub: new () => CustomHTMLElement;
@@ -139,13 +126,88 @@ export type HTML = {
     Title: new () => CustomHTMLTitleElement;
     TR: new () => CustomHTMLTableRowElement;
     Track: new () => CustomHTMLTrackElement;
-    TT: new () => CustomHTMLElement;
     U: new () => CustomHTMLElement;
     UL: new () => CustomHTMLUListElement;
     Var: new () => CustomHTMLElement;
     Video: new () => CustomHTMLVideoElement;
     Wbr: new () => CustomHTMLElement;
-    XMP: new () => CustomHTMLPreElement;
+};
+export type SVG = {
+    A: new () => CustomSVGAElement;
+    Animate: new () => CustomSVGAnimateElement;
+    AnimateMotion: new () => CustomSVGAnimateMotionElement;
+    AnimateTransform: new () => CustomSVGAnimateTransformElement;
+    Animation: new () => CustomSVGAnimationElement;
+    Circle: new () => CustomSVGCircleElement;
+    ClipPath: new () => CustomSVGClipPathElement;
+    ComponentTransferFunction: new () => CustomSVGComponentTransferFunctionElement;
+    Defs: new () => CustomSVGDefsElement;
+    Desc: new () => CustomSVGDescElement;
+    Element: new () => CustomSVGElement;
+    Ellipse: new () => CustomSVGEllipseElement;
+    FEBlend: new () => CustomSVGFEBlendElement;
+    FEColorMatrix: new () => CustomSVGFEColorMatrixElement;
+    FEComponentTransfer: new () => CustomSVGFEComponentTransferElement;
+    FEComposite: new () => CustomSVGFECompositeElement;
+    FEConvolveMatrix: new () => CustomSVGFEConvolveMatrixElement;
+    FEDiffuseLighting: new () => CustomSVGFEDiffuseLightingElement;
+    FEDisplacementMap: new () => CustomSVGFEDisplacementMapElement;
+    FEDistantLight: new () => CustomSVGFEDistantLightElement;
+    FEDropShadow: new () => CustomSVGFEDropShadowElement;
+    FEFlood: new () => CustomSVGFEFloodElement;
+    FEFuncA: new () => CustomSVGFEFuncAElement;
+    FEFuncB: new () => CustomSVGFEFuncBElement;
+    FEFuncG: new () => CustomSVGFEFuncGElement;
+    FEFuncR: new () => CustomSVGFEFuncRElement;
+    FEGaussianBlur: new () => CustomSVGFEGaussianBlurElement;
+    FEImage: new () => CustomSVGFEImageElement;
+    FEMerge: new () => CustomSVGFEMergeElement;
+    FEMergeNode: new () => CustomSVGFEMergeNodeElement;
+    FEMorphology: new () => CustomSVGFEMorphologyElement;
+    FEOffset: new () => CustomSVGFEOffsetElement;
+    FEPointLight: new () => CustomSVGFEPointLightElement;
+    FESpecularLighting: new () => CustomSVGFESpecularLightingElement;
+    FESpotLight: new () => CustomSVGFESpotLightElement;
+    FETile: new () => CustomSVGFETileElement;
+    FETurbulence: new () => CustomSVGFETurbulenceElement;
+    Filter: new () => CustomSVGFilterElement;
+    ForeignObject: new () => CustomSVGForeignObjectElement;
+    G: new () => CustomSVGGElement;
+    Geometry: new () => CustomSVGGeometryElement;
+    Gradient: new () => CustomSVGGradientElement;
+    Graphics: new () => CustomSVGGraphicsElement;
+    Image: new () => CustomSVGImageElement;
+    Line: new () => CustomSVGLineElement;
+    LinearGradient: new () => CustomSVGLinearGradientElement;
+    MPath: new () => CustomSVGMPathElement;
+    Marker: new () => CustomSVGMarkerElement;
+    Mask: new () => CustomSVGMaskElement;
+    Metadata: new () => CustomSVGMetadataElement;
+    Path: new () => CustomSVGPathElement;
+    Pattern: new () => CustomSVGPatternElement;
+    Polygon: new () => CustomSVGPolygonElement;
+    Polyline: new () => CustomSVGPolylineElement;
+    RadialGradient: new () => CustomSVGRadialGradientElement;
+    Rect: new () => CustomSVGRectElement;
+    SVG: new () => CustomSVGSVGElement;
+    Script: new () => CustomSVGScriptElement;
+    Set: new () => CustomSVGSetElement;
+    Stop: new () => CustomSVGStopElement;
+    Style: new () => CustomSVGStyleElement;
+    Switch: new () => CustomSVGSwitchElement;
+    Symbol: new () => CustomSVGSymbolElement;
+    TSpan: new () => CustomSVGTSpanElement;
+    TextContent: new () => CustomSVGTextContentElement;
+    Text: new () => CustomSVGTextElement;
+    TextPath: new () => CustomSVGTextPathElement;
+    TextPositioning: new () => CustomSVGTextPositioningElement;
+    Title: new () => CustomSVGTitleElement;
+    Use: new () => CustomSVGUseElement;
+    View: new () => CustomSVGViewElement;
+};
+export type Namespace = {
+    HTML: HTML;
+    SVG: SVG;
 };
 
 class CustomHTMLAnchorElement extends HTMLAnchorElement {
@@ -156,13 +218,6 @@ class CustomHTMLAnchorElement extends HTMLAnchorElement {
 };
 
 class CustomHTMLElement extends HTMLElement {
-  static observedAttributes?: string[];
-  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
-  connectedCallback?(): void;
-  disconnectedCallback?(): void;
-};
-
-class CustomHTMLUnknownElement extends HTMLUnknownElement {
   static observedAttributes?: string[];
   attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
   connectedCallback?(): void;
@@ -274,13 +329,6 @@ class CustomHTMLDialogElement extends HTMLDialogElement {
   disconnectedCallback?(): void;
 };
 
-class CustomHTMLDirectoryElement extends HTMLDirectoryElement {
-  static observedAttributes?: string[];
-  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
-  connectedCallback?(): void;
-  disconnectedCallback?(): void;
-};
-
 class CustomHTMLDivElement extends HTMLDivElement {
   static observedAttributes?: string[];
   attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
@@ -309,28 +357,7 @@ class CustomHTMLFieldSetElement extends HTMLFieldSetElement {
   disconnectedCallback?(): void;
 };
 
-class CustomHTMLFontElement extends HTMLFontElement {
-  static observedAttributes?: string[];
-  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
-  connectedCallback?(): void;
-  disconnectedCallback?(): void;
-};
-
 class CustomHTMLFormElement extends HTMLFormElement {
-  static observedAttributes?: string[];
-  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
-  connectedCallback?(): void;
-  disconnectedCallback?(): void;
-};
-
-class CustomHTMLFrameElement extends HTMLFrameElement {
-  static observedAttributes?: string[];
-  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
-  connectedCallback?(): void;
-  disconnectedCallback?(): void;
-};
-
-class CustomHTMLFrameSetElement extends HTMLFrameSetElement {
   static observedAttributes?: string[];
   attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
   connectedCallback?(): void;
@@ -421,13 +448,6 @@ class CustomHTMLMapElement extends HTMLMapElement {
   disconnectedCallback?(): void;
 };
 
-class CustomHTMLMarqueeElement extends HTMLMarqueeElement {
-  static observedAttributes?: string[];
-  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
-  connectedCallback?(): void;
-  disconnectedCallback?(): void;
-};
-
 class CustomHTMLMenuElement extends HTMLMenuElement {
   static observedAttributes?: string[];
   attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
@@ -491,14 +511,14 @@ class CustomHTMLParagraphElement extends HTMLParagraphElement {
   disconnectedCallback?(): void;
 };
 
-class CustomHTMLParamElement extends HTMLParamElement {
+class CustomHTMLPictureElement extends HTMLPictureElement {
   static observedAttributes?: string[];
   attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
   connectedCallback?(): void;
   disconnectedCallback?(): void;
 };
 
-class CustomHTMLPictureElement extends HTMLPictureElement {
+class CustomHTMLUnknownElement extends HTMLUnknownElement {
   static observedAttributes?: string[];
   attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
   connectedCallback?(): void;
@@ -632,6 +652,503 @@ class CustomHTMLUListElement extends HTMLUListElement {
 };
 
 class CustomHTMLVideoElement extends HTMLVideoElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGAElement extends SVGAElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGAnimateElement extends SVGAnimateElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGAnimateMotionElement extends SVGAnimateMotionElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGAnimateTransformElement extends SVGAnimateTransformElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGAnimationElement extends SVGAnimationElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGCircleElement extends SVGCircleElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGClipPathElement extends SVGClipPathElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGComponentTransferFunctionElement extends SVGComponentTransferFunctionElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGDefsElement extends SVGDefsElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGDescElement extends SVGDescElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGElement extends SVGElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGEllipseElement extends SVGEllipseElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEBlendElement extends SVGFEBlendElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEColorMatrixElement extends SVGFEColorMatrixElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEComponentTransferElement extends SVGFEComponentTransferElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFECompositeElement extends SVGFECompositeElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEConvolveMatrixElement extends SVGFEConvolveMatrixElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEDiffuseLightingElement extends SVGFEDiffuseLightingElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEDisplacementMapElement extends SVGFEDisplacementMapElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEDistantLightElement extends SVGFEDistantLightElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEDropShadowElement extends SVGFEDropShadowElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEFloodElement extends SVGFEFloodElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEFuncAElement extends SVGFEFuncAElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEFuncBElement extends SVGFEFuncBElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEFuncGElement extends SVGFEFuncGElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEFuncRElement extends SVGFEFuncRElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEGaussianBlurElement extends SVGFEGaussianBlurElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEImageElement extends SVGFEImageElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEMergeElement extends SVGFEMergeElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEMergeNodeElement extends SVGFEMergeNodeElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEMorphologyElement extends SVGFEMorphologyElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEOffsetElement extends SVGFEOffsetElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFEPointLightElement extends SVGFEPointLightElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFESpecularLightingElement extends SVGFESpecularLightingElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFESpotLightElement extends SVGFESpotLightElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFETileElement extends SVGFETileElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFETurbulenceElement extends SVGFETurbulenceElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGFilterElement extends SVGFilterElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGForeignObjectElement extends SVGForeignObjectElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGGElement extends SVGGElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGGeometryElement extends SVGGeometryElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGGradientElement extends SVGGradientElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGGraphicsElement extends SVGGraphicsElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGImageElement extends SVGImageElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGLineElement extends SVGLineElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGLinearGradientElement extends SVGLinearGradientElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGMPathElement extends SVGMPathElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGMarkerElement extends SVGMarkerElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGMaskElement extends SVGMaskElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGMetadataElement extends SVGMetadataElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGPathElement extends SVGPathElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGPatternElement extends SVGPatternElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGPolygonElement extends SVGPolygonElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGPolylineElement extends SVGPolylineElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGRadialGradientElement extends SVGRadialGradientElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGRectElement extends SVGRectElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGSVGElement extends SVGSVGElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGScriptElement extends SVGScriptElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGSetElement extends SVGSetElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGStopElement extends SVGStopElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGStyleElement extends SVGStyleElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGSwitchElement extends SVGSwitchElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGSymbolElement extends SVGSymbolElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGTSpanElement extends SVGTSpanElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGTextContentElement extends SVGTextContentElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGTextElement extends SVGTextElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGTextPathElement extends SVGTextPathElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGTextPositioningElement extends SVGTextPositioningElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGTitleElement extends SVGTitleElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGUseElement extends SVGUseElement {
+  static observedAttributes?: string[];
+  attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
+  connectedCallback?(): void;
+  disconnectedCallback?(): void;
+};
+
+class CustomSVGViewElement extends SVGViewElement {
   static observedAttributes?: string[];
   attributeChangedCallback?(name:string, oldValue:string | null, newValue:string | null): void;
   connectedCallback?(): void;

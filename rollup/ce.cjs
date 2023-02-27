@@ -4,7 +4,7 @@ const {readFileSync, writeFileSync} = require('node:fs');
 const target = join(__dirname, '..', 'types', 'ce.d.ts');
 const classes = [];
 const transformed = new Set;
-const content = readFileSync(target).toString().replace(/(HTML[a-z0-9]+)/ig, (_, $1) => {
+const content = readFileSync(target).toString().replace(/((?:HTML|SVG)[a-z0-9]+)/ig, (_, $1) => {
   if (!transformed.has($1)) {
     transformed.add($1);
     classes.push(`class Custom${$1} extends ${$1} {
