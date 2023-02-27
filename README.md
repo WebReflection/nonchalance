@@ -271,13 +271,13 @@ See it [live to test more](https://codepen.io/WebReflection/pen/eYLNrLB?editors=
 </details>
 
 <details>
-  <summary><strong>Can I extend also SVG and MathML elements?</strong></summary>
+  <summary><strong>Can I extend also SVG and MathML or other elements?</strong></summary>
   <div>
 
-**Yes**. There is another `/fe` (full elements / front end) runtime export (320 brotli) that changes the return type of the utility so that it's possible to create different registries:
+**Yes**. There `/core` runtime export (298 brotli) make it possible to create, by default, both *HTML* and *SVG* registries:
 
 ```js
-import createRegistry from 'nonchalance/fe';
+import createRegistry from 'nonchalance/core';
 const {HTML, SVG} = createRegistry();
 
 class Circle extends SVG.Circle {
@@ -296,9 +296,11 @@ document.querySelector('svg').append(
 );
 ```
 
-Some work is needed to provide proper TypeScript definition but this variant is granted to work on any browser already and it's tested too.
+See it [live on codepen](https://codepen.io/WebReflection/pen/abaBKyo?editors=0010).
 
-This also might pave the path for a breaking change as it really makes little sense to confine extends to *HTML* elements only, since the logic behind works with anything else, really.
+It is also possible to pass any *namespace* to the `createRegistry(options)`, using `{MathML: "http://www.w3.org/1998/Math/MathML"}` as example.
+
+Any namespace that has a meaning to `document.createElementNS` is allowed, there's no limitation in what kind of *DOM* elements we can upgrade.
 
   </div>
 </details>
