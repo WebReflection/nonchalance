@@ -12,17 +12,18 @@
     }
   },
   "scripts": {
-    "build": "npm run build:all && npm run build:types && npm run cjs && npm run rollup && npm run types && npm run test && npm run size:all && npm run size:es && npm run size:runtime && npm run size:ce && npm run size:fe",
+    "build": "npm run build:all && npm run build:types && npm run cjs && npm run rollup && npm run types && npm run test && npm run size:all && npm run size:es && npm run size:runtime && npm run size:ce && npm run size:core && node rollup/core.cjs && npm run size:fe",
     "build:all": "cat esm/index.js | sed 's/proxied-html-constructors/proxied-html-constructors\\/all/' > esm/all.js",
     "build:types": "node rollup/types.cjs",
     "cjs": "ascjs --no-default esm cjs",
-    "rollup": "rollup --config rollup/es.config.js && rollup --config rollup/runtime.config.js && rollup --config rollup/all.config.js && rollup --config rollup/ce.config.js && rollup --config rollup/fe.config.js",
+    "rollup": "rollup --config rollup/es.config.js && rollup --config rollup/runtime.config.js && rollup --config rollup/all.config.js && rollup --config rollup/ce.config.js && rollup --config rollup/core.config.js && rollup --config rollup/fe.config.js",
     "test": "c8 node test/index.js",
     "coverage": "mkdir -p ./coverage; c8 report --reporter=text-lcov > ./coverage/lcov.info",
     "size:all": "echo -e \"\\x1b[1mall.js\\x1b[0m brotli $(cat all.js | brotli | wc -c)\";echo -e \"\\x1b[1mall.js\\x1b[0m gzip $(cat all.js | gzip | wc -c)\"",
     "size:es": "echo -e \"\\x1b[1mes.js\\x1b[0m brotli $(cat es.js | brotli | wc -c)\";echo -e \"\\x1b[1mes.js\\x1b[0m gzip $(cat es.js | gzip | wc -c)\"",
     "size:runtime": "echo -e \"\\x1b[1mruntime.js\\x1b[0m brotli $(cat runtime.js | brotli | wc -c)\";echo -e \"\\x1b[1mruntime.js\\x1b[0m gzip $(cat runtime.js | gzip | wc -c)\"",
     "size:ce": "echo -e \"\\x1b[1mce.js\\x1b[0m brotli $(cat ce.js | brotli | wc -c)\";echo -e \"\\x1b[1mce.js\\x1b[0m gzip $(cat ce.js | gzip | wc -c)\"",
+    "size:core": "echo -e \"\\x1b[1mcore.js\\x1b[0m brotli $(cat core.js | brotli | wc -c)\";echo -e \"\\x1b[1mcore.js\\x1b[0m gzip $(cat core.js | gzip | wc -c)\"",
     "size:fe": "echo -e \"\\x1b[1mfe.js\\x1b[0m brotli $(cat fe.js | brotli | wc -c)\";echo -e \"\\x1b[1mfe.js\\x1b[0m gzip $(cat fe.js | gzip | wc -c)\"",
     "types": "tsc -p . && node rollup/fix-ts.cjs && node rollup/ce.cjs"
   },
@@ -63,6 +64,10 @@
       "types": "./types/ce.d.ts",
       "import": "./esm/ce.js",
       "default": "./cjs/ce.js"
+    },
+    "./core": {
+      "import": "./esm/core.js",
+      "default": "./cjs/core.js"
     },
     "./fe": {
       "import": "./esm/fe.js",

@@ -10,19 +10,27 @@ The easiest way to augment DOM builtin elements:
   * elements can be either created from scratch or upgraded on demand for **graceful hydration**
   * fits into 228 bytes (runtime) or 576 bytes (default) once served minified via default brotli settings (280 runtime or 666 via default gzip settings)
 
+### 📣 Soon to support HTML, SVG, and arbitraty namespaces
+
+The current `nonchalance/core` is going to be the default export for this library and the `createRegistry()` returns a proxy that populates registries once and on demand. `const {HTML, SVG} = createRegistry()` are default available namespaces to extend both HTML and SVG classes but it's possible to pass other namespaces too as option, among the optional `document` reference.
+
+This makes this module universally usable for every *DOM* namespace and you cna start pointing at the *core* variant as long as you change the `HTML` returned namespaces as `{HTML}`.
+
+Current core is *298 bytes* brotli or *379 bytes* gzipped.
+
 ### Example - A more secure password field:
 
 This example [can be tested live](https://webreflection.github.io/nonchalance/test/) and it just scratches the surface of what is possible to do with this extremely tiny, yet powerful, module.
 
 ```js
 // const createRegistry = require('nonchalance');
-import createRegistry from 'nonchalance';
+import createRegistry from 'nonchalance/core';
 
 // the default export accepts optionally a `globalThis` like
 // context for all those environments that don't have a native DOM.
 // Such registry can expose qualified classes names plus a `document` reference
 // that will be used to create elements.
-const HTML = createRegistry();
+const {HTML} = createRegistry();
 
 // extend any element to create, or upgrade, custom elements
 // from a registry that shares nothing with the global context
