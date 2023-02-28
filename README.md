@@ -9,7 +9,7 @@ The easiest way to augment any DOM builtin element:
   * **No polyfills needed**, all modern browsers just work™️
   * it's possible to extend *HTML*, *SVG*, or any other custom namespace, such as *MathML*, without issues
   * elements can be either created from scratch or upgraded on demand for **graceful hydration**
-  * fits into *298 bytes* runtime or *779 bytes* with Custom Elements lifecycle callbacks included (nothing new to learn)
+  * fits into *313 bytes* (core) or *788 bytes* with Custom Elements lifecycle callbacks included (nothing new to learn)
 
 ### Example - A more secure password field:
 
@@ -28,6 +28,7 @@ const {HTML} = createRegistry();
 // extend any element to create, or upgrade, custom elements
 // from a registry that shares nothing with the global context
 class Password extends HTML.Input {
+  // will inherit a static tag field = "input"
   constructor(...args) {
     super(...args);
     this.type = 'password';
@@ -176,6 +177,48 @@ See this [live demo on codepen](https://codepen.io/WebReflection/pen/vYzBQEe?edi
 This module doesn't want to (and likely also cannot) guard against misusage of its features, so be sure that whenever an element gets upgraded, it preserves its native prototype chain behind the scene, or you're alone fighting against the *DOM* ... which is quite inconvenient, if you ask me 😅
 
 In short, same way `customElements.define('my-link', class extends HTMLDivElement {}, {extends: 'a'})` makes no sense, this module trust its users non-sense classes will be hopefully avoided.
+
+  </div>
+</details>
+<details>
+  <summary><strong>What's the /tag export?</strong></summary>
+  <div>
+
+The `./tag` export (182 bytes) allows templates transformation in a hydration friendly way.
+
+It can be used as intermediate value behind full capable template literal tags and hydration can happen once those elements land on the *DOM*.
+
+```js
+import createRegistry from 'nonchalance/ce';
+import createTag from 'nonchalance/tag';
+
+const {HTML} = createRegistry();
+
+class HelloDiv extends HTML.Div {
+  connectedCallback() {
+    console.log('here I am');
+  }
+}
+
+// create a namespace reusable to hydrate
+const nmsp = {HelloDiv};
+
+// create a tag transformer
+const tag = createTag(nmsp);
+
+// quick and dirty demo
+document.body.innerHTML = tag`<HelloDiv />`;
+
+// hydration example
+for (const el of document.querySelectorAll('[data-comp]')) {
+  const {comp} = el.dataset;
+  delete el.dataset.comp;
+  // upgrade the element once
+  new nmsp[comp](el);
+}
+```
+
+See it [live on CodePen](https://codepen.io/WebReflection/pen/qBMRrKQ?editors=0010).
 
   </div>
 </details>

@@ -238,6 +238,7 @@ export default (options = W3) => new Proxy(new Map, {
         if (!Class)
           DOM.set(tag, Class = create(tag).constructor);
         class CustomElement extends custom(Class) {
+          static tag = tag;
           constructor(element) {
             super(element || create(tag));
           }

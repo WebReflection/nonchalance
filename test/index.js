@@ -36,4 +36,5 @@ function test({default: nonchalance}) {
   globalThis.document = self.document;
   nonchalance().HTML;
   globalThis.document = document;
+  import('./tag.js');
 }

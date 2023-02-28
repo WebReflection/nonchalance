@@ -297,6 +297,7 @@ module.exports = (options = W3) => new Proxy(new Map, {
         if (!Class)
           DOM.set(tag, Class = create(tag).constructor);
         class CustomElement extends custom(Class) {
+          static tag = tag;
           constructor(element) {
             upgrade(super(element || document.createElement(tag)));
           }
