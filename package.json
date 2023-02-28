@@ -74,8 +74,7 @@
   },
   "unpkg": "core.js",
   "dependencies": {
-    "custom-function": "^1.0.6",
-    "element-notifier": "^1.1.2"
+    "custom-function": "^1.0.6"
   },
   "repository": {
     "type": "git",

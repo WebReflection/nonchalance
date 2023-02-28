@@ -1,15 +1,52 @@
 /*! (c) Andrea Giammarchi - ISC */
 import custom from 'custom-function/factory';
-import {notify} from 'element-notifier';
 
 // if interested or wondering, this code is a rip-off of
 // https://github.com/WebReflection/as-custom-element#readme
+// https://github.com/WebReflection/element-notifier#readme
 
 const attributeChangedCallback = 'attributeChangedCallback';
 const connectedCallback = 'connectedCallback';
 const disconnectedCallback = 'disconnectedCallback';
 
 const observed = new WeakSet;
+
+const loop = (nodes, added, removed, connected, pass) => {
+  for (const node of nodes) {
+    if (pass || ('querySelectorAll' in node)) {
+      if (connected) {
+        if (!added.has(node)) {
+          added.add(node);
+          removed.delete(node);
+          if (observed.has(node))
+            node[connectedCallback]?.();
+        }
+      }
+      else if (!removed.has(node)) {
+        removed.add(node);
+        added.delete(node);
+        if (observed.has(node))
+          node[disconnectedCallback]?.();
+      }
+      if (!pass)
+        loop(node.querySelectorAll('*'), added, removed, connected, true);
+    }
+  }
+};
+
+const parseRecords = records => {
+  const added = new Set, removed = new Set;
+  for (const {addedNodes, removedNodes} of records) {
+    loop(removedNodes, added, removed, false, false);
+    loop(addedNodes, added, removed, true, false);
+  }
+};
+
+const observe = node => {
+  mo.observe(node, {subtree: true, childList: true});
+};
+
+const mo = new MutationObserver(parseRecords);
 const attributesObserver = new MutationObserver(records => {
   for (const {target, attributeName, oldValue} of records) {
     target[attributeChangedCallback](
@@ -19,6 +56,13 @@ const attributesObserver = new MutationObserver(records => {
     );
   }
 });
+
+const $attachShadow = Element.prototype.attachShadow;
+Element.prototype.attachShadow = function attachShadow(init) {
+  const shadowRoot = $attachShadow.call(this, init);
+  return observe(shadowRoot), shadowRoot;
+};
+observe(document);
 
 const upgrade = element => {
   const {
@@ -41,21 +85,13 @@ const upgrade = element => {
     });
   }
   if (connect || disconnect) {
+    const records = mo.takeRecords();
+    if (records.length)
+      parseRecords(records);
     observed.add(element);
     if (element.isConnected)
       connect?.call(element);
   }
-};
-
-const {observe} = notify((element, connected) => {
-  if (observed.has(element))
-    element[connected ? connectedCallback : disconnectedCallback]?.();
-});
-
-const $attachShadow = Element.prototype.attachShadow;
-Element.prototype.attachShadow = function attachShadow(init) {
-  const shadowRoot = $attachShadow.call(this, init);
-  return observe(shadowRoot), shadowRoot;
 };
 
 /**

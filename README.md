@@ -9,7 +9,7 @@ The easiest way to augment any DOM builtin element:
   * **No polyfills needed**, all modern browsers just work™️
   * it's possible to extend *HTML*, *SVG*, or any other custom namespace, such as *MathML*, without issues
   * elements can be either created from scratch or upgraded on demand for **graceful hydration**
-  * fits into *313 bytes* (core) or *788 bytes* with Custom Elements lifecycle callbacks included (nothing new to learn)
+  * fits into *313 bytes* (core) or *745 bytes* with Custom Elements lifecycle callbacks included (nothing new to learn)
 
 ### Example - A more secure password field:
 
