@@ -20,7 +20,7 @@ const tag = createTag(nmsp);
 console.log(tag`
 <!doctype html>
 <script type="module">
-import createRegistry from 'nonchalance/ce';
+import createRegistry from 'https://unpkg.com/nonchalance/ce';
 const {HTML} = createRegistry();
 const nmsp = {};
 for (const el of document.querySelectorAll('[data-comp]')) {
@@ -29,7 +29,7 @@ for (const el of document.querySelectorAll('[data-comp]')) {
   new nmsp[comp](el);
 }
 </script>
-<HelloDiv>👋<HelloDiv>
+<HelloDiv>👋</HelloDiv>
 `
   .join('')
   .trim()

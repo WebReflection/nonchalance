@@ -232,8 +232,8 @@ The `./dummy` export is mostly meant for *SSR*, providing an exact same utility 
 Combined with the `/tag` it is possible to do 100% SSR with *nonchalance* and hydrate at distance.
 
 ```js
-import createRegistry from '../esm/dummy.js';
-import createTag from '../esm/tag.js';
+import createRegistry from 'https://unpkg.com/nonchalance/dummy';
+import createTag from 'https://unpkg.com/nonchalance/tag';
 
 const {HTML} = createRegistry();
 
@@ -254,7 +254,7 @@ const tag = createTag(nmsp);
 console.log(tag`
 <!doctype html>
 <script type="module">
-import createRegistry from 'nonchalance/ce';
+import createRegistry from 'https://unpkg.com/nonchalance/ce';
 const {HTML} = createRegistry();
 const nmsp = {};
 for (const el of document.querySelectorAll('[data-comp]')) {
@@ -263,7 +263,7 @@ for (const el of document.querySelectorAll('[data-comp]')) {
   new nmsp[comp](el);
 }
 </script>
-<HelloDiv>👋<HelloDiv>
+<HelloDiv>👋</HelloDiv>
 `
   .join('')
   .trim()
