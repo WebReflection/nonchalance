@@ -207,7 +207,7 @@ const nmsp = {HelloDiv};
 const tag = createTag(nmsp);
 
 // quick and dirty demo
-document.body.innerHTML = tag`<HelloDiv />`;
+document.body.innerHTML = tag`<HelloDiv />`.join('');
 
 // hydration example
 for (const el of document.querySelectorAll('[data-comp]')) {

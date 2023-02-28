@@ -14,9 +14,6 @@
     connectedCallback() {
       console.log('here I am');
     }
-    disconnectedCallback() {
-      console.log('bye bye');
-    }
   }
 
   // create a namespace reusable to hydrate
@@ -26,7 +23,7 @@
   const tag = createTag(nmsp);
 
   // quick and dirty demo
-  document.body.innerHTML = tag`<HelloDiv>👋</HelloDiv>`;
+  document.body.innerHTML = tag`<HelloDiv>👋</HelloDiv>`.join('');
 
   // hydration example
   for (const el of document.querySelectorAll('[data-comp]')) {
