@@ -11,4 +11,9 @@ function test({default: createTag}) {
     tag`<Test><Some attr="value">abc</Some><Component1 /></>`.join('') ===
     '<div data-comp="Test"><p data-comp="Some" attr="value">abc</p><span data-comp="Component1" /></>'
   );
+
+  console.assert(
+    tag`<div>nothing happened here</div>`.join('') ===
+    '<div>nothing happened here</div>'
+  );
 }
