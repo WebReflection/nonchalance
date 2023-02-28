@@ -3,6 +3,7 @@ const {readFileSync, writeFileSync} = require('node:fs');
 
 fixDefaultExport('ce');
 fixDefaultExport('core');
+fixDefaultExport('dummy');
 
 function fixDefaultExport(name) {
   const target = join(__dirname, '..', 'types', name + '.d.ts');

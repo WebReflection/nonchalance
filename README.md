@@ -181,48 +181,6 @@ In short, same way `customElements.define('my-link', class extends HTMLDivElemen
   </div>
 </details>
 <details>
-  <summary><strong>What's the /tag export?</strong></summary>
-  <div>
-
-The `./tag` export (182 bytes) allows templates transformation in a hydration friendly way.
-
-It can be used as intermediate value behind full capable template literal tags and hydration can happen once those elements land on the *DOM*.
-
-```js
-import createRegistry from 'nonchalance/ce';
-import createTag from 'nonchalance/tag';
-
-const {HTML} = createRegistry();
-
-class HelloDiv extends HTML.Div {
-  connectedCallback() {
-    console.log('here I am');
-  }
-}
-
-// create a namespace reusable to hydrate
-const nmsp = {HelloDiv};
-
-// create a tag transformer
-const tag = createTag(nmsp);
-
-// quick and dirty demo
-document.body.innerHTML = tag`<HelloDiv />`.join('');
-
-// hydration example
-for (const el of document.querySelectorAll('[data-comp]')) {
-  const {comp} = el.dataset;
-  delete el.dataset.comp;
-  // upgrade the element once
-  new nmsp[comp](el);
-}
-```
-
-See it [live on CodePen](https://codepen.io/WebReflection/pen/qBMRrKQ?editors=0010).
-
-  </div>
-</details>
-<details>
   <summary><strong>What's the /accessor export?</strong></summary>
   <div>
 
@@ -266,10 +224,108 @@ See it [live to test more](https://codepen.io/WebReflection/pen/eYLNrLB?editors=
   </div>
 </details>
 <details>
+  <summary><strong>What's the /dummy export?</strong></summary>
+  <div>
+
+The `./dummy` export is mostly meant for *SSR*, providing an exact same utility to extend classes that will carry only a static `tag` field.
+
+Combined with the `/tag` it is possible to do 100% SSR with *nonchalance* and hydrate at distance.
+
+```js
+import createRegistry from '../esm/dummy.js';
+import createTag from '../esm/tag.js';
+
+const {HTML} = createRegistry();
+
+class HelloDiv extends HTML.Div {
+  connectedCallback() {
+    console.log('here I am');
+  }
+}
+
+// create a namespace reusable to hydrate
+const nmsp = {HelloDiv};
+
+// create a tag transformer
+const tag = createTag(nmsp);
+
+// imagine a server response instead
+// note: this code is for demo sake only
+console.log(tag`
+<!doctype html>
+<script type="module">
+import createRegistry from 'nonchalance/ce';
+const {HTML} = createRegistry();
+const nmsp = {};
+for (const el of document.querySelectorAll('[data-comp]')) {
+  const {comp} = el.dataset;
+  delete el.dataset.comp;
+  new nmsp[comp](el);
+}
+</script>
+<HelloDiv>👋<HelloDiv>
+`
+  .join('')
+  .trim()
+  .replace(
+    'const nmsp = {};',
+    `const nmsp = {
+      ${[...Object.entries(nmsp)].map(
+        ([key, value]) => `${key}: ${value}`
+      ).join(',\n')}
+    };`
+  ));
+```
+
+  </div>
+</details>
+<details>
   <summary><strong>What's the /ref export?</strong></summary>
   <div>
 
 Please check the *Can I use this with React or other fameworks?* entry of this list 😉
+
+  </div>
+</details>
+<details>
+  <summary><strong>What's the /tag export?</strong></summary>
+  <div>
+
+The `./tag` export (182 bytes) allows templates transformation in a hydration friendly way.
+
+It can be used as intermediate value behind full capable template literal tags and hydration can happen once those elements land on the *DOM*.
+
+```js
+import createRegistry from 'nonchalance/ce';
+import createTag from 'nonchalance/tag';
+
+const {HTML} = createRegistry();
+
+class HelloDiv extends HTML.Div {
+  connectedCallback() {
+    console.log('here I am');
+  }
+}
+
+// create a namespace reusable to hydrate
+const nmsp = {HelloDiv};
+
+// create a tag transformer
+const tag = createTag(nmsp);
+
+// quick and dirty demo
+document.body.innerHTML = tag`<HelloDiv />`.join('');
+
+// hydration example
+for (const el of document.querySelectorAll('[data-comp]')) {
+  const {comp} = el.dataset;
+  delete el.dataset.comp;
+  // upgrade the element once
+  new nmsp[comp](el);
+}
+```
+
+See it [live on CodePen](https://codepen.io/WebReflection/pen/qBMRrKQ?editors=0010).
 
   </div>
 </details>

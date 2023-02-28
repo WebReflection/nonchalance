@@ -60,6 +60,11 @@
       "import": "./esm/core.js",
       "default": "./cjs/core.js"
     },
+    "./dummy": {
+      "types": "./types/dummy.d.ts",
+      "import": "./esm/dummy.js",
+      "default": "./cjs/dummy.js"
+    },
     "./ref": {
       "types": "./types/ref.d.ts",
       "import": "./esm/ref.js",

@@ -37,4 +37,5 @@ function test({default: nonchalance}) {
   nonchalance().HTML;
   globalThis.document = document;
   import('./tag.js');
+  import('./dummy.js');
 }
