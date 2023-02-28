@@ -368,22 +368,11 @@ Any namespace that has a meaning to `document.createElementNS` is allowed, there
   <summary><strong>Aren't builtin extends hostile or not supported in Safari?</strong></summary>
   <div>
 
-I've talked ad nauseam [about this topic](https://webreflection.medium.com/in-favor-of-custom-elements-built-ins-bae3f40f27d5), but as a summary:
+I had a very long answer to this before but the summary is that this module uses **standards** as provided by *W3C*, *WHATWG*, or *ECMAScript*, and it requires less than 1KB to work everywhere.
 
-  * the success of *jQuery*, which is still the most deployed and used library out there, is based on native elements manipulation and augmentation
-  * every browser but Safari/WebKit supports builtin extends and uses it in the wild, signaling WebKit concerns are somehow not so relevant
-  * the API specification [still mention builtin extends](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example), implying it's not really a blocker for the Web
-  * with ES2015 and classes, the only troublesome constructors have always been DOM classes and their *Illegal Constructor* error ... well, it's time to say goodbye to those legacy constraints
-  * with modern ES2019 features, such as private fields, the Liskov substitution argument is less of a concern, as extra logic can be confined within private fields and methods, lowering the risk of collision for future elements updates
+This is no polyfill, it's a utility to help you write components in the JS world and worry zero these will clash, require tools, or be not portable across any target project you like/need/prefer.
 
-In short, if you read again the most basic `Password` class example, it's clear that builtin extends can go way beyond, and with ease, any complex and verbose and slower *ShadowDOM* based solution, so that keeping on being stubborn about avoiding graceful enhancement on what's the Web we surf daily is just counter-productive, and years have to pass before everyone can actually benefit from latest overly-complicated *Shadow DOM* realm, which includes [accessibility issues](https://github.com/WebKit/standards-positions/issues/97#issuecomment-1424415317), constraints, limited use cases compared to builtin extends, and so on ... so here there's something that's meant to work as *ECMAScript* specification compliant, without bothering legacy DOM world and all these distracting and time-consuming debates around builtin extends while the Web moves forward.
-
-This module's goal is to provide a choice that doesn't suffer any of the problems developers love to talk about builtin extends:
-
-  * "*do I need a polyfill forever?*" no, you need 576 bytes (or just 228) plus your code to forget about this issue
-  * "*will builtin extends be removed from specs?*" who cares, with a library helper of only 576 bytes (or 228), you're good to go
-
-And the strawberry on top, this module would work even within opened or closed ShadowDOM content, as long as the logic provides upgrades or uses classes programmatically.
+In short, if you're OK adding less than 1K bytes to deliver universal components for both Front End and Back End world, you've hit the right module 🥳
 
   </div>
 </details>
