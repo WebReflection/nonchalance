@@ -333,7 +333,7 @@ See it [live on CodePen](https://codepen.io/WebReflection/pen/qBMRrKQ?editors=00
   <summary><strong>Can I extend also SVG and MathML or other elements?</strong></summary>
   <div>
 
-**Yes**. The `/core` runtime export makes it possible to create, by default, both *HTML* and *SVG* registries:
+**Yes**. Both `/core` and `/ce` exports make it possible to create, by default, both *HTML* and *SVG* registries:
 
 ```js
 import createRegistry from 'nonchalance/core';
