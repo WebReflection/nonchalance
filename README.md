@@ -243,6 +243,8 @@ document.write('<script src="//unpkg.com/@webreflection/custom-elements-builtin"
 </script>
 ```
 
+**Please note** that while both `HTML` and `SVG` namespaces are allowed by default as builtin extends, custome elements do not accept *SVG* extends so that practically only *HTML* extends are possible with the current `/jsx` export.
+
   </div>
 </details>
 <details>
