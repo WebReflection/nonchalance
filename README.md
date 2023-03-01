@@ -108,24 +108,6 @@ Summary: *nonchalance* registries simply upgrade elements without changing their
   </div>
 </details>
 <details>
-  <summary><strong>What's in the default module export?</strong></summary>
-  <div>
-
-Currently, the default / main export for this module points at the very same `/core` export.
-
-Becuase this module opens a Pandora's box with its simplicity and vaporware code size, and mostly because it's still behind a `0.` semver version, I am trying to consider what should be included in the index, and here some of my thoughts:
-
-  * wouldn't it be cool to have an [ESX](https://github.com/ungap/esx#readme) based module that understands components defined this way?
-  * wouldn't it be cool to have a *JSX* pragma function that creates components through this module?
-  * wouldn't it be cool to have ... (your place holder here) ... ?
-
-Yes, it would be cool, and if I can make up my mind around how the default export should be named, I'm game to bring that name among other goodness as default entry for this module ... stay tuned or please give me thoughts and hints on how to do that 🙏
-
-Until then though, please use explicit exports to be sure future updates won't mess up with your logic, and I apology if recent changes caused you troubles, but I am pretty sure you can easily related or understand that was for good!
-
-  </div>
-</details>
-<details>
   <summary><strong>Can I use this with React or other fameworks?</strong></summary>
   <div>
 
@@ -181,6 +163,24 @@ In short, same way `customElements.define('my-link', class extends HTMLDivElemen
   </div>
 </details>
 <details>
+  <summary><strong>What's in the default module export?</strong></summary>
+  <div>
+
+Currently, the default / main export for this module points at the very same `/core` export.
+
+Becuase this module opens a Pandora's box with its simplicity and vaporware code size, and mostly because it's still behind a `0.` semver version, I am trying to consider what should be included in the index, and here some of my thoughts:
+
+  * wouldn't it be cool to have an [ESX](https://github.com/ungap/esx#readme) based module that understands components defined this way?
+  * wouldn't it be cool to have a *JSX* pragma function that creates components through this module?
+  * wouldn't it be cool to have ... (your place holder here) ... ?
+
+Yes, it would be cool, and if I can make up my mind around how the default export should be named, I'm game to bring that name among other goodness as default entry for this module ... stay tuned or please give me thoughts and hints on how to do that 🙏
+
+Until then though, please use explicit exports to be sure future updates won't mess up with your logic, and I apology if recent changes caused you troubles, but I am pretty sure you can easily related or understand that was for good!
+
+  </div>
+</details>
+<details>
   <summary><strong>What's the /accessor export?</strong></summary>
   <div>
 
@@ -220,6 +220,28 @@ console.log(div.value);
 ```
 
 See it [live to test more](https://codepen.io/WebReflection/pen/eYLNrLB?editors=0011).
+
+  </div>
+</details>
+<details>
+  <summary><strong>What's the /builtin export?</strong></summary>
+  <div>
+
+The `/builtin` export (248 bytes) is exactly like `/core` *except* it doesn't use `custom-function` behind the scene, meaning that:
+
+  * it's not possible to `new BuiltIn()` or to `new BuiltIn(element)` as that would throw an error, unless not already registered as *customElement builtin extend*
+  * it can be used to automate components registration, as shown in this [live demo on CodePen](https://codepen.io/WebReflection/pen/ExeWxLy?editors=0011)
+
+The only major caveat around this export is that if used with *React* or *Preact* for real standard custom elements the builtin polyfill might be needed for Safari or WebKit, example:
+
+```html
+<!-- top most page script for Safari only polyfill -->
+<script>
+self.chrome ||
+self.netscape ||
+document.write('<script src="//unpkg.com/@webreflection/custom-elements-builtin"><\x2fscript>');
+</script>
+```
 
   </div>
 </details>
@@ -276,6 +298,16 @@ for (const el of document.querySelectorAll('[data-comp]')) {
     };`
   ));
 ```
+
+  </div>
+</details>
+<details>
+  <summary><strong>What's the /jsx export?</strong></summary>
+  <div>
+
+The `/jsx` export (182 bytes) allows *Automatic Custom Elements Builtin Extend* instantiation by wraping `React.createElement` in way that *nonchalance* `/builtin` classes get automatically registered *once*, using the platform to graceful enhance otherwise normal *div*, *button*, or other elemnets.
+
+See it used in practice with *Preact* [live on CodePen](https://codepen.io/WebReflection/pen/ExeWxLy?editors=0011).
 
   </div>
 </details>
