@@ -12,11 +12,12 @@
     }
   },
   "scripts": {
-    "build": "npm run cjs && npm run rollup && npm run types && npm run test && npm run size:ce && npm run size:core && node rollup/core.cjs && npm run size:jsx && npm run size:tag",
+    "build": "npm run cjs && npm run rollup && npm run types && npm run test && npm run size:ce && npm run size:core && node rollup/core.cjs && npm run size:jsx && npm run size:builtin && npm run size:tag",
     "cjs": "ascjs --no-default esm cjs",
-    "rollup": "rollup --config rollup/ce.config.js && rollup --config rollup/core.config.js && rollup --config rollup/tag.config.js && rollup --config rollup/jsx.config.js",
+    "rollup": "rollup --config rollup/ce.config.js && rollup --config rollup/core.config.js && rollup --config rollup/tag.config.js && rollup --config rollup/jsx.config.js && rollup --config rollup/builtin.config.js",
     "test": "c8 node test/index.js",
     "coverage": "mkdir -p ./coverage; c8 report --reporter=text-lcov > ./coverage/lcov.info",
+    "size:builtin": "echo -e \"\\x1b[1mbuiltin.js\\x1b[0m brotli $(cat builtin.js | brotli | wc -c)\";echo -e \"\\x1b[1mbuiltin.js\\x1b[0m gzip $(cat builtin.js | gzip | wc -c)\"",
     "size:ce": "echo -e \"\\x1b[1mce.js\\x1b[0m brotli $(cat ce.js | brotli | wc -c)\";echo -e \"\\x1b[1mce.js\\x1b[0m gzip $(cat ce.js | gzip | wc -c)\"",
     "size:core": "echo -e \"\\x1b[1mcore.js\\x1b[0m brotli $(cat core.js | brotli | wc -c)\";echo -e \"\\x1b[1mcore.js\\x1b[0m gzip $(cat core.js | gzip | wc -c)\"",
     "size:jsx": "echo -e \"\\x1b[1mjsx.js\\x1b[0m brotli $(cat jsx.js | brotli | wc -c)\";echo -e \"\\x1b[1mjsx.js\\x1b[0m gzip $(cat jsx.js | gzip | wc -c)\"",
@@ -50,6 +51,11 @@
       "types": "./types/accessors.d.ts",
       "import": "./esm/accessors.js",
       "default": "./cjs/accessors.js"
+    },
+    "./builtin": {
+      "types": "./types/builtin.d.ts",
+      "import": "./esm/builtin.js",
+      "default": "./cjs/builtin.js"
     },
     "./ce": {
       "types": "./types/ce.d.ts",

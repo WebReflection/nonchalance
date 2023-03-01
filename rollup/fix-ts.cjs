@@ -1,6 +1,7 @@
 const {join} = require('node:path');
 const {readFileSync, writeFileSync} = require('node:fs');
 
+fixDefaultExport('builtin');
 fixDefaultExport('ce');
 fixDefaultExport('core');
 fixDefaultExport('dummy');
