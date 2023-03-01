@@ -291,7 +291,7 @@ Please check the *Can I use this with React or other fameworks?* entry of this l
   <summary><strong>What's the /tag export?</strong></summary>
   <div>
 
-The `./tag` export (182 bytes) allows templates transformation in a hydration friendly way.
+The `./tag` export (188 bytes) allows templates transformation in a hydration friendly way.
 
 It can be used as intermediate value behind full capable template literal tags and hydration can happen once those elements land on the *DOM*.
 

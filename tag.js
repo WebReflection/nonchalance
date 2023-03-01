@@ -1,1 +1,1 @@
-var a=(a={})=>t=>t.join("\0").replace(/(<(\/)?(\S*?)>)|(<(\S+)([^>]*?)>)/g,((t,$,e,n,r,i,o)=>{const p=` data-comp="${n||i}"`;return n in a?`<${e||""}${a[n].tag}${e?"":p}>`:i in a?`<${a[i].tag}${p}${o}>`:t})).split("\0");export{a as default};
+var t=(t={})=>a=>a.join("\0").replace(/(<(\/)?(\S*?)>)|(<(\S+)([^>]*?)>)/g,((a,$,e,r,i,n,o)=>{const p=` ${t.attribute||"data-comp"}="${r||n}"`;return r in t?`<${e||""}${t[r].tag}${e?"":p}>`:n in t?`<${t[n].tag}${p}${o}>`:a})).split("\0");export{t as default};
