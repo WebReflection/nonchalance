@@ -294,7 +294,7 @@ The `/jsx` export (986 bytes) allows accepts an extra `createElement` option and
 
   * classes will receive in their constructor the *props* passed along the element, enabling signals, other functions, or handling anything already possible to be handled by default *JSX* components.
   * when the constructor is called, the element would be already filled with its children, avoiding possible shenanigans known with standard custom elements when classes are defined/registered before the document is parsed.
-  * similar to `/builtin` extend though, it's not possible to `new Component(props)` but it's also possible to `<Component {...props} />`.
+  * similar to `/builtin` extend though, it's not possible to `new Component(props)` but it's always possible to `<Component {...props} />`.
 
 See it used in practice with *React* [live on CodePen](https://codepen.io/WebReflection/pen/VwGpLBv?editors=0011).
 
