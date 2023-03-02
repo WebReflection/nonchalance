@@ -231,7 +231,6 @@ module.exports = (options = W3) => {
       let prev;
       const dom = {
         ref(node) {
-          console.log(node instanceof Class);
           if (!(node instanceof Class)) {
             const _ = element;
             element = node;
