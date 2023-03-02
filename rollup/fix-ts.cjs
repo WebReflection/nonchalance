@@ -5,6 +5,7 @@ fixDefaultExport('builtin');
 fixDefaultExport('ce');
 fixDefaultExport('core');
 fixDefaultExport('dummy');
+fixDefaultExport('jsx');
 
 function fixDefaultExport(name) {
   const target = join(__dirname, '..', 'types', name + '.d.ts');

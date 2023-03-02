@@ -1,98 +1,6 @@
 /*! (c) Andrea Giammarchi - ISC */
 import custom from 'custom-function/factory';
-
-// if interested or wondering, this code is a rip-off of
-// https://github.com/WebReflection/as-custom-element#readme
-// https://github.com/WebReflection/element-notifier#readme
-
-const attributeChangedCallback = 'attributeChangedCallback';
-const connectedCallback = 'connectedCallback';
-const disconnectedCallback = 'disconnectedCallback';
-
-const observed = new WeakSet;
-
-const loop = (nodes, added, removed, connected, pass) => {
-  for (const node of nodes) {
-    if (pass || ('querySelectorAll' in node)) {
-      if (connected) {
-        if (!added.has(node)) {
-          added.add(node);
-          removed.delete(node);
-          if (observed.has(node))
-            node[connectedCallback]?.();
-        }
-      }
-      else if (!removed.has(node)) {
-        removed.add(node);
-        added.delete(node);
-        if (observed.has(node))
-          node[disconnectedCallback]?.();
-      }
-      if (!pass)
-        loop(node.querySelectorAll('*'), added, removed, connected, true);
-    }
-  }
-};
-
-const parseRecords = records => {
-  const added = new Set, removed = new Set;
-  for (const {addedNodes, removedNodes} of records) {
-    loop(removedNodes, added, removed, false, false);
-    loop(addedNodes, added, removed, true, false);
-  }
-};
-
-const observe = node => {
-  mo.observe(node, {subtree: true, childList: true});
-};
-
-const mo = new MutationObserver(parseRecords);
-const attributesObserver = new MutationObserver(records => {
-  for (const {target, attributeName, oldValue} of records) {
-    target[attributeChangedCallback](
-      attributeName,
-      oldValue,
-      target.getAttribute(attributeName)
-    );
-  }
-});
-
-const $attachShadow = Element.prototype.attachShadow;
-Element.prototype.attachShadow = function attachShadow(init) {
-  const shadowRoot = $attachShadow.call(this, init);
-  return observe(shadowRoot), shadowRoot;
-};
-observe(document);
-
-const upgrade = element => {
-  const {
-    [attributeChangedCallback]: attributes,
-    [connectedCallback]: connect,
-    [disconnectedCallback]: disconnect
-  } = element;
-  if (attributes) {
-    attributesObserver.observe(element, {
-      attributes: true,
-      attributeOldValue: true,
-      attributeFilter: element.constructor.observedAttributes.map(
-        attributeName => {
-          const value = element.getAttribute(attributeName);
-          if (value != null)
-            attributes.call(element, attributeName, null, value);
-          return attributeName;
-        }
-      )
-    });
-  }
-  if (connect || disconnect) {
-    const records = mo.takeRecords();
-    if (records.length)
-      parseRecords(records);
-    observed.add(element);
-    if (element.isConnected)
-      connect?.call(element);
-  }
-};
+import createUpgrade from './upgrade.js';
 
 /**
  * @typedef {Object} Options An object with a `document` and zero, one, or more custom namespaces.
@@ -312,35 +220,38 @@ let W3 = {
  * @property {Options} [options]
  * @returns {Namespace}
  */
-export default (options = W3) => new Proxy(new Map, {
-  get(map, Namespace) {
-    let Proxied = map.get(Namespace);
-    if (!Proxied) {
-      map.set(Namespace, Proxied = new Proxy(new Map, {
-        get(map, tag) {
-          let _ = tag.toLowerCase();
-          return map.get(_) || set(map, _);
-        }
-      }));
-      let DOM = new Map;
-      let doc = options.document || document;
-      let create = doc.createElementNS.bind(
-        doc, options[Namespace] || W3[Namespace]
-      );
-      let set = (map, tag) => {
-        let Class = DOM.get(tag);
-        if (!Class)
-          DOM.set(tag, Class = create(tag).constructor);
-        class CustomElement extends custom(Class) {
-          static tag = tag;
-          constructor(element) {
-            upgrade(super(element || document.createElement(tag)));
+export default (options = W3) => {
+  const doc = options.document || document;
+  const upgrade = createUpgrade(doc, options);
+  return new Proxy(new Map, {
+    get(map, Namespace) {
+      let Proxied = map.get(Namespace);
+      if (!Proxied) {
+        const DOM = new Map;
+        const create = doc.createElementNS.bind(
+          doc, options[Namespace] || W3[Namespace]
+        );
+        const set = (map, tag) => {
+          let Class = DOM.get(tag);
+          if (!Class)
+            DOM.set(tag, Class = create(tag).constructor);
+          class CustomElement extends custom(Class) {
+            static tag = tag;
+            constructor(element) {
+              upgrade(super(element || create(tag)));
+            }
           }
-        }
-        map.set(tag, CustomElement);
-        return CustomElement;
-      };
+          map.set(tag, CustomElement);
+          return CustomElement;
+        };
+        map.set(Namespace, Proxied = new Proxy(new Map, {
+          get(map, tag) {
+            const _ = tag.toLowerCase();
+            return map.get(_) || set(map, _);
+          }
+        }));
+      }
+      return Proxied;
     }
-    return Proxied;
-  }
-});
+  });
+};

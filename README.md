@@ -9,7 +9,7 @@ The easiest way to augment any DOM builtin element:
   * **No polyfills needed**, all modern browsers just work™️
   * it's possible to extend *HTML*, *SVG*, or any other custom namespace, such as *MathML*, without issues
   * elements can be either created from scratch or upgraded on demand for **graceful hydration**
-  * fits into *313 bytes* (core) or *745 bytes* with Custom Elements lifecycle callbacks included (nothing new to learn)
+  * fits into *313 bytes* (core) or *774 bytes* with Custom Elements lifecycle callbacks included (nothing new to learn)
 
 ### Example - A more secure password field:
 
@@ -111,30 +111,13 @@ Summary: *nonchalance* registries simply upgrade elements without changing their
   <summary><strong>Can I use this with React or other fameworks?</strong></summary>
   <div>
 
-**Yes**. The *DOM* is the *DOM*, no matter how many indirections there are in between. Your DX might vary, accordingly with the framework features, but if *React* is what you are after, there is a tiny yet elegant and `ref` based way to promote regular JSX nodes with *nonchalance*:
+**Yes**, either via `/jsx` export or through the `/ref` one.
 
-```js
-import referenced from 'nonchalance/ref';
+**About /jsx**
+Please see *What's the /jsx export?* section.
 
-// indicate the Component will be passed as reference
-// Note: this is just a light Proxy that grants class integrity
-// regardless of its usage in the wild
-const Component = referenced(class extends HTML.Div {
-  constructor(...args) {
-    super(...args);
-    this.addEventListener('click', console.log);
-  }
-});
-
-ReactDOM.render(
-  <div ref={Component}>click me</div>,
-  document.body
-);
-```
-
-The `ref` utility could also be used as a decorator and without affecting any feature of regular *nonchalance* classes. Plus, each element is upgraded only once so that it's safe to add listeners or logic in the constructor.
-
-See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?editors=0011) to play around it.
+**About /ref**
+Please see *What's the /ref export?* section.
 
   </div>
 </details>
@@ -232,7 +215,7 @@ The `/builtin` export (248 bytes) is exactly like `/core` *except* it doesn't us
   * it's not possible to `new BuiltIn()` or to `new BuiltIn(element)` as that would throw an error, unless not already registered as *customElement builtin extend*
   * it can be used to automate components registration, as shown in this [live demo on CodePen](https://codepen.io/WebReflection/pen/ExeWxLy?editors=0011)
 
-The only major caveat around this export is that if used with *React* or *Preact* for real standard custom elements the builtin polyfill might be needed for Safari or WebKit, example:
+The only major caveat around this export is that, because it's based on real standard custom elements, the builtin polyfill might be needed for Safari or WebKit, example:
 
 ```html
 <!-- top most page script for Safari only polyfill -->
@@ -243,7 +226,7 @@ document.write('<script src="//unpkg.com/@webreflection/custom-elements-builtin"
 </script>
 ```
 
-**Please note** that while both `HTML` and `SVG` namespaces are allowed by default as builtin extends, custome elements do not accept *SVG* extends so that practically only *HTML* extends are possible with the current `/jsx` export.
+**Please note** that while both `HTML` and `SVG` namespaces are allowed by default as builtin extends, custome elements do not accept *SVG* extends so that practically only *HTML* extends are possible with the current `/builtin` export.
 
   </div>
 </details>
@@ -307,9 +290,13 @@ for (const el of document.querySelectorAll('[data-comp]')) {
   <summary><strong>What's the /jsx export?</strong></summary>
   <div>
 
-The `/jsx` export (182 bytes) allows *Automatic Custom Elements Builtin Extend* instantiation by wraping `React.createElement` in way that *nonchalance* `/builtin` classes get automatically registered *once*, using the platform to graceful enhance otherwise normal *div*, *button*, or other elemnets.
+The `/jsx` export (986 bytes) allows accepts an extra `createElement` option and returns a `jsx` function that can be used as *@jsx pragma* to transform, among everything else already working by default in *React* or *Preact*, also classes extended via the *HTML* or *SVG* registry, including all features that `/ce` brings to those classes: Custom Elements like lifecycle with some spice on top:
 
-See it used in practice with *Preact* [live on CodePen](https://codepen.io/WebReflection/pen/ExeWxLy?editors=0011).
+  * classes will receive in their constructor the *props* passed along the element, enabling signals, other functions, or handling anything already possible to be handled by default *JSX* components.
+  * when the constructor is called, the element would be already filled with its children, avoiding possible shenanigans known with standard custom elements when classes are defined/registered before the document is parsed.
+  * similar to `/builtin` extend though, it's not possible to `new Component(props)` but it's also possible to `<Component {...props} />`.
+
+See it used in practice with *React* [live on CodePen](https://codepen.io/WebReflection/pen/VwGpLBv?editors=0011).
 
   </div>
 </details>
@@ -317,7 +304,30 @@ See it used in practice with *Preact* [live on CodePen](https://codepen.io/WebRe
   <summary><strong>What's the /ref export?</strong></summary>
   <div>
 
-Please check the *Can I use this with React or other fameworks?* entry of this list 😉
+The *DOM* is the *DOM*, no matter how many indirections there are in between. Your DX might vary, accordingly with the framework features, but if *React* is what you are after, there is a tiny yet elegant and `ref` based way to promote regular JSX nodes with *nonchalance/core* or *nonchalance/ce*:
+
+```js
+import referenced from 'nonchalance/ref';
+
+// indicate the Component will be passed as reference
+// Note: this is just a light Proxy that grants class integrity
+// regardless of its usage in the wild
+const Component = referenced(class extends HTML.Div {
+  constructor(...args) {
+    super(...args);
+    this.addEventListener('click', console.log);
+  }
+});
+
+ReactDOM.render(
+  <div ref={Component}>click me</div>,
+  document.body
+);
+```
+
+The `ref` utility could also be used as a decorator and without affecting any feature of regular *nonchalance* classes. Plus, each element is upgraded only once so that it's safe to add listeners or logic in the constructor.
+
+See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?editors=0011) to play around it.
 
   </div>
 </details>
