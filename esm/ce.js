@@ -238,7 +238,15 @@ export default (options = W3) => {
           class CustomElement extends custom(Class) {
             static tag = tag;
             constructor(element) {
-              upgrade(super(element || create(tag)));
+              const namespaceURI = options[Namespace] || W3[Namespace];
+              if (element && element.namespaceURI !== namespaceURI) {
+                const {attributes, childNodes} = element;
+                element = create(tag);
+                for (const {name, value} of attributes)
+                  element.setAttribute(name, value);
+                element.replaceChildren(...childNodes);
+              }
+              return upgrade(super(element || create(tag)));
             }
           }
           map.set(tag, CustomElement);
