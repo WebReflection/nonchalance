@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>nonchalance</title>
   <script type="module">
-  import createRegistry from '../es.js';
+  import createRegistry from '../core.js';
 
   // the default export accepts optionally a `globalThis` like
   // context for all those environments that don't have a native DOM.
   // Such registry can expose qualified classes names plus a `document` reference
   // that will be used to create elements.
-  const HTML = createRegistry();
+  const {HTML} = createRegistry();
 
   // extend any element to create, or upgrade, custom elements
   // from a registry that shares nothing with the global context
