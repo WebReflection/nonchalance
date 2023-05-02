@@ -33,7 +33,7 @@ export default (document, {MutationObserver, Element}) => {
   };
 
   const parseRecords = records => {
-    const added = new Set, removed = new Set;
+    const added = new Set, removed = new WeakSet;
     for (const {addedNodes, removedNodes} of records) {
       loop(removedNodes, added, removed, false, false);
       loop(addedNodes, added, removed, true, false);
