@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>nonchalance / auto hydration via CSS selector</title>
+  <script type="module">
+  import createRegistry from '../core.js';
+  import { define } from '../selector.js';
+  
+  const { HTML } = createRegistry();
+
+  const Password = define(
+    'input[type="password"]',
+    class extends HTML.Input {
+      constructor(...args) {
+        super(...args);
+        this.type = 'password';
+      }
+      get value() {
+        return '********';
+      }
+      set value(secret) {
+        super.value = secret;
+      }
+    }
+  );
+
+  document.body.innerHTML = `
+    <form>
+      <input type="text" name="user" placeholder="user">
+      <input type="password" name="password" placeholder="password">
+      <input type="submit">
+    </form>
+  `;
+
+  // or create a new instance
+  const secret = Object.assign(new Password, {
+    name: 'pass',
+    value: Math.random(),
+    placeholder: 'runtime password'
+  });
+
+  const form = document.querySelector('form');
+  form.insertBefore(secret, form.lastElementChild);
+  </script>
+</head>
+<body></body>
+</html>

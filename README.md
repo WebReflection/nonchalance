@@ -290,7 +290,7 @@ for (const el of document.querySelectorAll('[data-comp]')) {
   <summary><strong>What's the /jsx export?</strong></summary>
   <div>
 
-The `/jsx` export (976 bytes) allows accepts an extra `createElement` option and returns a `jsx` function that can be used as *@jsx pragma* to transform, among everything else already working by default in *React* or *Preact*, also classes extended via the *HTML* or *SVG* registry, including all features that `/ce` brings to those classes: Custom Elements like lifecycle with some spice on top:
+The `/jsx` export (976 bytes) accepts an extra `createElement` option and returns a `jsx` function that can be used as *@jsx pragma* to transform, among everything else already working by default in *React* or *Preact*, also classes extended via the *HTML* or *SVG* registry, including all features that `/ce` brings to those classes: Custom Elements like lifecycle with some spice on top:
 
   * classes will receive in their constructor the *props* passed along the element, enabling signals, other functions, or handling anything already possible to be handled by default *JSX* components.
   * when the constructor is called, the element would be already filled with its children, avoiding possible shenanigans known with standard custom elements when classes are defined/registered before the document is parsed.
@@ -328,6 +328,32 @@ ReactDOM.render(
 The `ref` utility could also be used as a decorator and without affecting any feature of regular *nonchalance* classes. Plus, each element is upgraded only once so that it's safe to add listeners or logic in the constructor.
 
 See this demo [live on codepen](https://codepen.io/WebReflection/pen/gOdYvag?editors=0011) to play around it.
+
+  </div>
+</details>
+<details>
+  <summary><strong>What's the /selector export?</strong></summary>
+  <div>
+
+The `/selector` export (796 bytes) allows live definition of any CSS selector so that the related class will automatically upgrade any element that matches that selector.
+
+Please note that such selector should be *as unique as possible* otherwise surprises might happen. Use specific classes or `data-` attributes to describe best your selector.
+
+```js
+import createRegistry from 'nonchalance/core';
+import { define } from 'nonchalance/selector';
+
+const { HTML } = createRegistry();
+const Special = define('[data-comp="special"]', class extends HTML.Div {
+  constructor(...args) {
+    super(...args);
+    this.textContent = 'I am special!';
+  }
+});
+
+// will contain "I am special!" text once live
+document.body.innerHTML = `<div data-comp="special"></div>`;
+```
 
   </div>
 </details>
