@@ -12,6 +12,7 @@ export default {
     })
   ],
   output: {
+    esModule: true,
     file: './tag.js',
     format: 'module'
   }

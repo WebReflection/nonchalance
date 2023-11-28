@@ -12,6 +12,7 @@ export default {
     })
   ],
   output: {
+    esModule: true,
     file: './ce.js',
     format: 'module'
   }

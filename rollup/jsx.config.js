@@ -12,6 +12,7 @@ export default {
     })
   ],
   output: {
+    esModule: true,
     file: './jsx.js',
     format: 'module'
   }
