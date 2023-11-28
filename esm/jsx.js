@@ -296,7 +296,7 @@ export default (options = W3) => {
           class CustomElement extends Class {
             static tag = tag;
             constructor() {
-              return upgrade(element), element;
+              return upgrade(element);
             }
           }
           map.set(tag, CustomElement);

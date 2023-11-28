@@ -95,5 +95,6 @@ export default (document, {MutationObserver, Element}) => {
       if (element.isConnected)
         connect?.call(element);
     }
+    return element;
   };
 };

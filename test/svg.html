@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>nonchalance</title>
+  <script type="module">
+  import createRegistry from '../ce.js';
+  import createTag from '../tag.js';
+
+  const {SVG} = createRegistry();
+
+  class HelloCircle extends SVG.Circle {
+    connectedCallback() {
+      console.log(this.outerHTML);
+    }
+  }
+
+  // create a namespace reusable to hydrate
+  const nmsp = {HelloCircle};
+
+  // create a tag transformer
+  const tag = createTag(nmsp);
+
+  // quick and dirty demo
+  foreign.innerHTML = tag`<HelloCircle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />`.join('');
+  const el = foreign.firstElementChild;
+  const {comp} = el.dataset;
+  delete el.dataset.comp;
+  target.append(new nmsp[comp](el));
+  </script>
+</head>
+<body>
+  <div id="foreign"></div>
+  <svg id="target" height="100" width="100"></svg>
+</body>
+</html>
