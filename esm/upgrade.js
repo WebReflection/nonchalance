@@ -92,8 +92,10 @@ export default (document, {MutationObserver, Element}) => {
       if (records.length)
         parseRecords(records);
       observed.add(element);
-      if (element.isConnected)
-        connect?.call(element);
+      Promise.resolve().then(() => {
+        if (element.isConnected)
+          connect?.call(element);
+      });
     }
     return element;
   };
