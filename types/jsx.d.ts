@@ -12,15 +12,15 @@ export type Options = {
     /**
      * the namespace to use for HTML classes.
      */
-    HTML?: 'http://www.w3.org/1999/xhtml';
+    HTML?: "http://www.w3.org/1999/xhtml";
     /**
      * the namespace to use for SVG classes.
      */
-    SVG?: 'http://www.w3.org/2000/svg';
+    SVG?: "http://www.w3.org/2000/svg";
     /**
      * any desired extra namespace.
      */
-    CustomML?: '...';
+    CustomML?: "...";
 };
 export type HTML = {
     A: new () => HTMLAnchorElement;
