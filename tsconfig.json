@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-      "module": "ES2020",
-      "target": "ES2020",
-      "moduleResolution": "Classic",
-      "allowJs": true,
-      "declaration": true,
-      "emitDeclarationOnly": true,
-      "declarationDir": "types"
+    "allowJs": true,
+    "checkJs": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": false,
+    "outDir": "types",
+    "rootDir": "./esm",
+    "skipLibCheck": true,
+    "strict": false,
+    "target": "ES2022"
   },
-  "include": [
-    "esm/**/*.js"
-  ]
+  "include": ["./esm/*.js"],
+  "exclude": ["node_modules", "types", "test"]
 }
