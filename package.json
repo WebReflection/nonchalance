@@ -98,7 +98,7 @@
   "unpkg": "core.js",
   "dependencies": {
     "custom-function": "^3.0.0",
-    "qsa-observer": "^3.0.2"
+    "qsa-observer": "^4.0.0"
   },
   "repository": {
     "type": "git",
