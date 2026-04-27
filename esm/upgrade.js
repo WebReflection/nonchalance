@@ -2,6 +2,8 @@
 // https://github.com/WebReflection/as-custom-element#readme
 // https://github.com/WebReflection/element-notifier#readme
 
+import { ShadowObserver, OPEN, CLOSED } from 'shadow-observer';
+
 const attributeChangedCallback = 'attributeChangedCallback';
 const connectedCallback = 'connectedCallback';
 const disconnectedCallback = 'disconnectedCallback';
@@ -40,7 +42,7 @@ export default (document, {MutationObserver, Element}) => {
     }
   };
 
-  const MO = MutationObserver || globalThis.MutationObserver;
+  const MO = MutationObserver || ShadowObserver;
   const mo = new MO(parseRecords);
   const attributesObserver = new MO(records => {
     for (const {target, attributeName, oldValue} of records) {
@@ -52,22 +54,9 @@ export default (document, {MutationObserver, Element}) => {
     }
   });
 
-  const observe = node => {
-    mo.observe(node, {subtree: true, childList: true});
-  };
+  mo.observe(document, {subtree: true, childList: true, shadow: OPEN | CLOSED});
 
-  observe(document);
-
-  const El = Element || globalThis.Element;
-  if (El) {
-    const $attachShadow = El.prototype.attachShadow;
-    El.prototype.attachShadow = function attachShadow(init) {
-      const shadowRoot = $attachShadow.call(this, init);
-      return observe(shadowRoot), shadowRoot;
-    };
-  }
-
-  return element => {
+  return (element, isConnected) => {
     const {
       [attributeChangedCallback]: attributes,
       [connectedCallback]: connect,
@@ -92,10 +81,7 @@ export default (document, {MutationObserver, Element}) => {
       if (records.length)
         parseRecords(records);
       observed.add(element);
-      Promise.resolve().then(() => {
-        if (element.isConnected)
-          connect?.call(element);
-      });
+      if (isConnected) queueMicrotask(() => connect?.call(element));
     }
     return element;
   };

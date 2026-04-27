@@ -21,12 +21,17 @@
     }
   }
 
-  document.body.appendChild(new AsCustomElement).textContent = 'OK';
-  document.body.firstElementChild.setAttribute('test', 123);
+  const div = new AsCustomElement(
+    // document.getElementById('live')
+  );
+  document.body.appendChild(div).textContent = 'OK';
+  div.setAttribute('test', 123);
   setTimeout(() => {
     document.body.textContent = 'check console';
   }, 1000);
   </script>
 </head>
-<body></body>
+<body>
+  <div id="live"></div>
+</body>
 </html>

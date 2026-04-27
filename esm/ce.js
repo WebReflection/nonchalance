@@ -246,7 +246,7 @@ export default (options = W3) => {
                   element.setAttribute(name, value);
                 element.replaceChildren(...childNodes);
               }
-              return upgrade(super(element || create(tag)));
+              return upgrade(super(element || create(tag)), !!element?.isConnected);
             }
           }
           map.set(tag, CustomElement);
